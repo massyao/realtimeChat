@@ -8,28 +8,28 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 // console.log('path ', process.cwd())
-const privateKey  = fs.readFileSync('cert/private.pem', 'utf8');
-const certificate = fs.readFileSync('cert/key.crt', 'utf8');
-const credentials = {key: privateKey, cert: certificate};
+// const privateKey  = fs.readFileSync('cert/private.pem', 'utf8');
+// const certificate = fs.readFileSync('cert/key.crt', 'utf8');
+// const credentials = {key: privateKey, cert: certificate};
 
-// const server = http.createServer(app);
-const server = https.createServer(credentials, app);
+const server = http.createServer(app);
+// const server = https.createServer(credentials, app);
 
 
 
 const PORT = 80;
-const SSLPORT = 443;
+const SSLPORT = 8080;
 
 
 // app.get('/', (req, res, next) => res.send('Hello world!'));
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 // https://expressjs.com/en/starter/basic-routing.html
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/index.html");
-});
+// app.get("/", (request, response) => {
+//   response.sendFile(__dirname + "/views/index.html");
+// });
 
 // listen for requests :)
 // const listener = app.listen(process.env.PORT, () => {
