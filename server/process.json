@@ -1,0 +1,15 @@
+{
+  "apps": [
+    {
+      "name": "conference-peerjs-server",
+      "script": "index.js",
+      "instances" : "max",
+      "exec_mode" : "cluster",
+      "watch": false,
+      "node_args": "--harmony",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+  ]
+}
