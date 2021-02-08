@@ -1,0 +1,59 @@
+###
+# Auth
+
+POST {{baseUrl}}/users/sign?fields=*
+Content-Type: application/json
+
+{
+  "login": "test",
+  "password": "123456"
+}
+
+###
+# GET by id
+
+GET {{baseUrl}}users/5d0176ac7dd93011d8159d51?fields=_id,email,profile(*)
+X-Token:{{tokenAdmin}}
+Content-Type: application/json
+
+###
+# Change password
+
+PUT {{baseUrl}}users/5d0176ac7dd93011d8159d51/password
+X-Token:{{tokenAdmin}}
+Content-Type: application/json
+
+{
+  "oldPassword":"123456",
+  "newPassword":"1234567"
+}
+
+###
+# Create or registre new user
+
+POST {{baseUrl}}/users?fields=order
+Content-Type: application/json
+
+{
+  "email": "boolive@yandex.ru",
+  "profile": {
+    "name": "Владимир",
+    "surname": "Шестаков"
+  }
+}
+
+###
+# GET current
+
+GET {{baseUrl}}/users/self?fields=*
+Content-Type: application/json
+X-Token: {{tokenAdmin}}
+
+###
+# Logout
+
+DELETE {{baseUrl}}/users/sign
+Content-Type: application/json
+X-Token: {{tokenAdmin}}
+
+###

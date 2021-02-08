@@ -1,0 +1,8 @@
+###
+# GET list
+
+GET {{baseUrl}}/roles
+X-Token:{{tokenAdmin}}
+Content-Type: application/json
+
+###
