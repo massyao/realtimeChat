@@ -1,5 +1,6 @@
 /**
  * HTTP server for render
+ * node server side render
  */
 process.env.TARGET = process.env.TARGET || 'node';
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
