@@ -9,7 +9,7 @@ class Logo extends Component {
   };
 
   static defaultProps = {
-    title: 'PeerJS & React & Redux',
+    title: 'Real Time Chat',
   };
 
   render() {
