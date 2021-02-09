@@ -11,7 +11,7 @@ let config = {
 
     proxy: {
       '/api/**': {
-        target: ' http://localhost:9000/conference',
+        target: 'http://localhost:9000/conference',
         secure: true,
         changeOrigin: true,
       },

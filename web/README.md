@@ -19,6 +19,8 @@ Build result in `./dist` [README](dist/README.md)
 ## Code generator
 To automatically create sample files can be used [hygen.io](http://www.hygen.io/)
 
+https://github.com/ylabio
+
 ```
 npm i -g hygen
 
