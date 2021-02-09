@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import Header from '@containers/header-container';
 import Content from '@components/layouts/layout-content';
-import Footer from '@components/layouts/layout-footer';
+
 import Conference from '@containers/conference';
 import PeerJsConnect from '@containers/peerjs-connect';
 import PeersConnect from '@containers/peers-connect';
@@ -14,6 +14,7 @@ function Main() {
   return (
     <Layout className="layout">
       <Header />
+      
       <Layout>
         <Sider
           width={350}
@@ -29,7 +30,7 @@ function Main() {
           </Content>
         </Layout>
       </Layout>
-      <Footer />
+
     </Layout>
   );
 }
