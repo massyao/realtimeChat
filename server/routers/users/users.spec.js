@@ -11,20 +11,20 @@ describe('User API', () => {
     s.http = await s.test.getHttp();
     s.storage = await s.services.getStorage();
     s.users = s.storage.get('user');
-    // Начальные данные для тестов
+    // nachalnyje dannyje dlja tjestov
       data.users = await s.test.initUsers();
   });
 
-  describe('Регистрация', () => {
+  describe('rjegestraceja', () => {
 
-    test('С обязательными полями', async () => {
+    test('s objazatjelnyme poljame', async () => {
       const body = {
         email: 'boolive@yandex.ru',
         password: '123456789',
         phone: '+81234567890',
         profile: {
-          name: 'Имя',
-          surname: 'Фамилия',
+          name: 'emja',
+          surname: 'fameleja',
           birthday: '1999-01-01T00:00:00+03:00'
         }
       };
@@ -33,14 +33,14 @@ describe('User API', () => {
       expect(response.body).toMatchObject({result: {status: 'new'}});
     });
 
-    test('Повторная регистрация (не уникальный email)', async () => {
+    test('povtornaja rjegestraceja (nje unekalnyjj email)', async () => {
       const body = {
         email: 'boolive@yandex.ru',
         password: '123456789',
         phone: '+11234567000',
         profile: {
-          name: 'Имя',
-          surname: 'Фамилия',
+          name: 'emja',
+          surname: 'fameleja',
           birthday: '1999-01-01T00:00:00+03:00',
         }
       };
@@ -59,9 +59,9 @@ describe('User API', () => {
     });
   });
 
-  describe('Смена паролей', () => {
+  describe('smjena paroljejj', () => {
 
-    test('Отправка одинаковых паролей', async () => {
+    test('otpravka odenakovykh paroljejj', async () => {
       const user = arrayUtils.random(data.users);
 
       const auth = await s.users.signIn({
@@ -94,7 +94,7 @@ describe('User API', () => {
       });
     });
 
-    test('Отправка невалидного старого пароля', async () => {
+    test('otpravka njevalednogo starogo parolja', async () => {
       const user = arrayUtils.random(data.users);
 
       const auth = await s.users.signIn({
@@ -127,7 +127,7 @@ describe('User API', () => {
       });
     });
 
-    test('Отправка невалидного нового пароля', async () => {
+    test('otpravka njevalednogo novogo parolja', async () => {
       const user = arrayUtils.random(data.users);
 
       const auth = await s.users.signIn({
@@ -160,7 +160,7 @@ describe('User API', () => {
       });
     });
 
-    test('Успешная смена пароля', async () => {
+    test('uspjeshnaja smjena parolja', async () => {
       const user = arrayUtils.random(data.users);
 
       //const user = await s.users.getOne({email: userData.login});

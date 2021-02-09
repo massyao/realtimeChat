@@ -24,7 +24,7 @@ class PeerJs {
     };
   }
 
-  // Соединение с PeerJs сервером и подписываение на события
+  // sojedenjeneje s PeerJs sjervjerom e podpesyvajeneje na sobyteja
   connect(peerId = null, callback) {
     // If connected then do nothing
     if (this.isConnected()) {
@@ -33,12 +33,12 @@ class PeerJs {
     }
 
     if (!this.userMedia) {
-      // Запрашиваем доступ к микрофону и видео камере
+      // zaprashevajem dostup k mekrofonu e vedjeo kamjerje
       this.userMedia =
         navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     }
 
-    // Если undefined - значит не удалось получить доступ к медиа ресурсам пользователя
+    // jesle undefined - znachet nje udalos poluchet dostup k mjedea rjesursam polzovatjelja
     if (!this.userMedia) {
       alert('Failed to access user media resources!');
       return;
@@ -56,7 +56,7 @@ class PeerJs {
     this.peerId = peerId;
     this.peer = new Peer(peerId, CONFIG.peerJsServer);
 
-    // Событие при установке соединения с сервером PeerJs
+    // sobyteje pre ustanovkje sojedenjeneja s sjervjerom PeerJs
     this.peer.on('open', id => {
       // console.log('peer opened:', id);
       this.peerId = id;
@@ -64,43 +64,43 @@ class PeerJs {
       callback && callback(this.peerId);
     });
 
-    // На данное событие не реагируем. Достаточно события disconnected.
+    // na dannoje sobyteje nje rjeagerujem. dostatochno sobyteja disconnected.
     // this.peer.on('close', () => {
     //   console.log('peer closed');
     //   this.error === null && this._onDisconnected();
     // });
 
-    // Событие будет вызвано, как при ручном дисконнекте, так и при error
+    // sobyteje budjet vyzvano, kak pre ruchnom deskonnjektje, tak e pre error
     this.peer.on('disconnected', () => {
       // console.log('peer disconnected');
-      // Если было событие error, то повторно _onDisconnected не вызываем
+      // jesle bylo sobyteje error, to povtorno _onDisconnected nje vyzyvajem
       this.error === null && this._onDisconnected();
     });
 
-    // После события error будет вызвано событие disconnected и потом close
+    // poslje sobyteja error budjet vyzvano sobyteje disconnected e potom close
     this.peer.on('error', err => {
       // console.log('peer error:', err);
       this.error = err;
       this._onDisconnected(true, err);
       // reconnect infinitely every 1 sec.
       setTimeout(() => {
-        // реконнектим со старым peerId
+        // rjekonnjektem so starym peerId
         this.connect(this.peerId, callback);
       }, 2000);
     });
 
-    // Событие при входящем соединении типа data
+    // sobyteje pre vkhodjaschjem sojedenjenee tepa data
     this.peer.on('connection', conn => this._onDataConnected(conn));
 
-    // Событие при входящем соединении типа media
+    // sobyteje pre vkhodjaschjem sojedenjenee tepa media
     this.peer.on('call', call => {
-      // Шаринг экрана
+      // shareng ehkrana
       if (call.metadata && call.metadata.shareScreen) {
         call.answer();
         this._onDisplayMediaConnected(call);
         return;
       }
-      // Подключение по видео-связи
+      // podkljuchjeneje po vedjeo-svjaze
       this.userMedia(
         this.mediaConfig,
         stream => {
@@ -115,12 +115,12 @@ class PeerJs {
     });
   }
 
-  // Повторное соединение с PeerJs со старым peerId
+  // povtornoje sojedenjeneje s PeerJs so starym peerId
   reconnect() {
     !this.isDestroyed() && this.peer.reconnect();
   }
 
-  // Отсоединение от PeerJs сервера
+  // otsojedenjeneje ot PeerJs sjervjera
   disconnect() {
     if (!this.peer) {
       return;
@@ -131,7 +131,7 @@ class PeerJs {
     this.elements = [];
   }
 
-  // Соединение с участником по типу data
+  // sojedenjeneje s uchastnekom po tepu data
   dataConnect(peerId, nickname) {
     if (!this.isConnected()) {
       return;
@@ -141,7 +141,7 @@ class PeerJs {
     conn.on('open', () => this._onDataConnected(conn));
   }
 
-  // Соединение с участником по типу media
+  // sojedenjeneje s uchastnekom po tepu media
   mediaCall(peerId, nickname) {
     if (!this.isConnected()) {
       return;
@@ -160,7 +160,7 @@ class PeerJs {
     );
   }
 
-  // Соединение с участником по типу media с расшариванием экрана вместо видео-потока с камеры
+  // sojedenjeneje s uchastnekom po tepu media s rassharevanejem ehkrana vmjesto vedjeo-potoka s kamjery
   async startShareScreen(peerId, nickname) {
     if (!this.isConnected()) {
       return;
@@ -231,7 +231,7 @@ class PeerJs {
     }
   }
 
-  // Отправка сообщения другому участнику
+  // otpravka soobschjeneja drugomu uchastneku
   sendData(conn, data) {
     if (!conn || !conn.open || !data) {
       return;
@@ -239,12 +239,12 @@ class PeerJs {
     conn.send(data);
   }
 
-  // Есть ли соединение с сервером
+  // jest le sojedenjeneje s sjervjerom
   isConnected() {
     return this.peer && !this.peer.disconnected && !this.peer.destroyed;
   }
 
-  // Уничтожено ли соединение (реконнект в таком случае невозможен)
+  // unechtozhjeno le sojedenjeneje (rjekonnjekt v takom sluchaje njevozmozhjen)
   isDestroyed() {
     return !this.peer || this.peer.destroyed;
   }
@@ -265,7 +265,7 @@ class PeerJs {
     }
   }
 
-  // Вызов экшена при дисконнекте
+  // vyzov ehkshjena pre deskonnjektje
   _onDisconnected(clearPeer = false, err) {
     if (clearPeer) {
       this.peer = null;
@@ -273,7 +273,7 @@ class PeerJs {
     actions.conference.disconnected(err);
   }
 
-  // Вызов экшена и подписка на события data соединении
+  // vyzov ehkshjena e podpeska na sobyteja data sojedenjenee
   _onDataConnected(conn) {
     // console.log('data conn opened:', conn);
     actions.conference.dataConnected(conn);
@@ -282,21 +282,21 @@ class PeerJs {
     conn.on('error', err => this._onDataDisconnected(conn, err));
   }
 
-  // Вызов экшена при получении data сообщения
+  // vyzov ehkshjena pre poluchjenee data soobschjeneja
   _onDataRecv(peerId, data) {
     // console.log('recv data:', peerId, data);
     actions.conference.dataRecv(peerId, data);
   }
 
-  // Когда участник отсоединяется от data соединения
-  // err === null - подразумевается, что участник отсоединился намеренно
-  // err !== null - пытаемся сделать реконнект с участником, если инциатор - мы
+  // kogda uchastnek otsojedenjajetsja ot data sojedenjeneja
+  // err === null - podrazumjevajetsja, chto uchastnek otsojedenelsja namjerjenno
+  // err !== null - pytajemsja sdjelat rjekonnjekt s uchastnekom, jesle enceator - my
   _onDataDisconnected(conn, err = null) {
     // console.log('data disconnected', conn.peer, conn.metadata, err);
     actions.conference.dataDisconnected(conn.peer, err);
   }
 
-  // Вызов экшена и подписка на события media соединении
+  // vyzov ehkshjena e podpeska na sobyteja media sojedenjenee
   _onMediaConnected(call) {
     // console.log('media conn opened:', call);
     actions.conference.mediaConnected(call);
@@ -305,9 +305,9 @@ class PeerJs {
     call.on('error', err => this._onMediaDisconnected(call, err));
   }
 
-  // Когда участник отсоединяется от media соединения
-  // err === null - подразумевается, что участник отсоединился намеренно
-  // err !== null - пытаемся сделать реконнект с участником, если инциатор - мы
+  // kogda uchastnek otsojedenjajetsja ot media sojedenjeneja
+  // err === null - podrazumjevajetsja, chto uchastnek otsojedenelsja namjerjenno
+  // err !== null - pytajemsja sdjelat rjekonnjekt s uchastnekom, jesle enceator - my
   _onMediaDisconnected(call, err = null) {
     // console.log('media disconnected', call.peer, call.metadata, err);
     actions.conference.mediaDisconnected(call.peer, err);
@@ -328,8 +328,8 @@ class PeerJs {
     this.removeDisplayElementBy(call.peer);
   }
 
-  // Создание аудио/видео элемента на странице и привязка к нему stream с участником
-  // Все элементы мы помещаем в this.elements, чтобы при дисконнекте их уничтожить
+  // sozdaneje audeo/vedjeo ehljemjenta na stranecje e prevjazka k njemu stream s uchastnekom
+  // vsje ehljemjenty my pomjeschajem v this.elements, chtoby pre deskonnjektje ekh unechtozhet
   _onStreamEvent(peerId, remoteStream, isDisplayMedia = false) {
     const exist = this.elements.find(elm => elm.peerId === peerId);
     if (exist && !isDisplayMedia) {
@@ -359,7 +359,7 @@ class PeerJs {
     elm.play();
   }
 
-  // Вывод на экран своего видео-потока
+  // vyvod na ehkran svojego vedjeo-potoka
   _onMyStreamEvent(myStream) {
     const peerId = this.peerId;
     const exist = this.elements.find(elm => elm.peerId === peerId);

@@ -13,8 +13,8 @@ module.exports = async (router, services) => {
    */
   router.post('/users', {
     operationId: 'users.create',
-    summary: 'Регистрация (создание)',
-    description: 'Создание нового пользователя (регистарция).',
+    summary: 'rjegestraceja (sozdaneje)',
+    description: 'sozdaneje novogo polzovatjelja (rjegestarceja).',
     tags: ['Users'],
     session: spec.generate('session.user', []),
     requestBody: {
@@ -28,7 +28,7 @@ module.exports = async (router, services) => {
     },
     parameters: [
       {
-        in: 'query', name: 'fields', description: 'Выбираемые поля',
+        in: 'query', name: 'fields', description: 'vyberajemyje polja',
         schema: {type: 'string'}, example: '_id,email,profile(name)'
       }
     ],
@@ -52,8 +52,8 @@ module.exports = async (router, services) => {
    */
   router.post('/users/sign', {
     operationId: 'users.signIn',
-    summary: 'Вход',
-    description: 'Авторизация по логину и паролю',
+    summary: 'vkhod',
+    description: 'avtorezaceja po logenu e parolju',
     tags: ['Users'],
     session: spec.generate('session.user', []),
     requestBody: {
@@ -65,7 +65,7 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'Выбираемые поля по пользователю',
+        description: 'vyberajemyje polja po polzovatjelju',
         schema: {
           type: 'string'
         },
@@ -74,11 +74,11 @@ module.exports = async (router, services) => {
     ],
     responses: {
       200: spec.generate('success', {
-          token: {type: 'string', description: 'Токен'},
+          token: {type: 'string', description: 'tokjen'},
           user: {$ref: '#/components/schemas/user.view'}
         },
         {
-          'Set-Cookie': {type: 'string', description: 'Токен в "Token"'}
+          'Set-Cookie': {type: 'string', description: 'tokjen v "Token"'}
         }
       ),
       400: spec.generate('error', 'Bad Request', 400)
@@ -105,10 +105,10 @@ module.exports = async (router, services) => {
    */
   router.post('/users/password', {
     operationId: 'users.restore',
-    summary: 'Вспомнить пароль',
-    description: 'Запрос нового пароля. \n\n' +
-    'На указанную почту отправляется новый пароль. ' +
-    'Старый пароль заменится новым при первом входе с новым паролем',
+    summary: 'vspomnet parol',
+    description: 'zapros novogo parolja. \n\n' +
+    'na ukazannuju pochtu otpravljajetsja novyjj parol. ' +
+    'staryjj parol zamjenetsja novym pre pjervom vkhodje s novym paroljem',
     tags: ['Users'],
     session: spec.generate('session.user', []),
     requestBody: {
@@ -133,8 +133,8 @@ module.exports = async (router, services) => {
    */
   router.delete('/users/sign', {
     operationId: 'users.signOut',
-    summary: 'Выход',
-    description: 'Отмена авторизации. Удаляется текущий токен (token) пользователя',
+    summary: 'vykhod',
+    description: 'otmjena avtorezacee. udaljajetsja tjekuschejj tokjen (token) polzovatjelja',
     tags: ['Users'],
     session: spec.generate('session.user', ['user']),
     parameters: [],
@@ -154,35 +154,35 @@ module.exports = async (router, services) => {
   router.get('/users', {
     //proxy: true,
     operationId: 'users.list',
-    summary: 'Выбор списка (поиск)',
-    description: 'Список пользователей с фильтром',
+    summary: 'vybor speska (poesk)',
+    description: 'spesok polzovatjeljejj s feltrom',
     tags: ['Users'],
     //session: spec.generate('session.user', ['user']),
     parameters: [
       {
         in: 'query', name: 'search[query]', schema: {type: 'string'}, example: '',
-        description: 'Обший поиск по фио, телефону, мылу и др'
+        description: 'obshejj poesk po feo, tjeljefonu, mylu e dr'
       },
       {
         in: 'query', name: 'search[name]', schema: {type: 'string'}, example: '',
-        description: 'Поиск по имени и фамилии. "|" - для разделения поисковых фраз'
+        description: 'poesk po emjene e famelee. "|" - dlja razdjeljeneja poeskovykh fraz'
       },
       {
         in: 'query', name: 'search[email]', schema: {type: 'string'}, example: '',
-        description: 'Поиск по email'
+        description: 'poesk po email'
       },
       {
         in: 'query', name: 'search[phone]', schema: {type: 'string'}, example: '',
-        description: 'Поиск по телефону'
+        description: 'poesk po tjeljefonu'
       },
       {
         in: 'query', name: 'search[status]',
         schema: {type: 'string', enum: ['new', 'reject', 'confirm']},
-        description: 'Статус пользователя'
+        description: 'status polzovatjelja'
       },
       {
         in: 'query', name: 'search[isBlocked]', schema: {type: 'boolean'},
-        description: 'Признак блокировки'
+        description: 'preznak blokerovke'
       },
       {$ref: '#/components/parameters/sort'},
       {$ref: '#/components/parameters/limit'},
@@ -190,13 +190,13 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'Выбираемые поля',
+        description: 'vyberajemyje polja',
         schema: {type: 'string'}, example: '_id,email,profile(name)'
       },
       {
         in: 'query',
         name: 'changes',
-        description: 'Ключ для выборки изменений',
+        description: 'kljuch dlja vyborke ezmjenjenejj',
         schema: {type: 'string'}
       },
     ],
@@ -245,8 +245,8 @@ module.exports = async (router, services) => {
    */
   router.get('/users/:id', {
     operationId: 'users.one',
-    summary: 'Выбор одного',
-    description: 'Пользователь по идентификатору. Вместо идентификатора можно укзать self чтобы выбрать текущего пользователя по токену',
+    summary: 'vybor odnogo',
+    description: 'polzovatjel po edjentefekatoru. vmjesto edjentefekatora mozhno ukzat self chtoby vybrat tjekuschjego polzovatjelja po tokjenu',
     tags: ['Users'],
     session: spec.generate('session.user', ['user']),
     parameters: [
@@ -254,12 +254,12 @@ module.exports = async (router, services) => {
         in: 'path',
         name: 'id',
         schema: {type: 'string'},
-        description: 'Идентификатор пользователя или self для выборки по токену текущего юзера'
+        description: 'edjentefekator polzovatjelja ele self dlja vyborke po tokjenu tjekuschjego juzjera'
       },
       {
         in: 'query',
         name: 'fields',
-        description: 'Выбираемые поля',
+        description: 'vyberajemyje polja',
         schema: {type: 'string'}, example: '_id,email,profile(name)'
       }
     ],
@@ -294,8 +294,8 @@ module.exports = async (router, services) => {
    */
   // router.put('/users/:id', {
   //   operationId: 'users.update',
-  //   summary: 'Редактирование',
-  //   description: 'Измненение свойств пользователя. Доступно владельцу профиля и админу',
+  //   summary: 'rjedakterovaneje',
+  //   description: 'ezmnjenjeneje svojjstv polzovatjelja. dostupno vladjelcu profelja e admenu',
   //   tags: ['Users'],
   //   session: spec.generate('session.user', ['user']),
   //   requestBody: {
@@ -308,12 +308,12 @@ module.exports = async (router, services) => {
   //       in: 'path',
   //       name: 'id',
   //       schema: {type: 'string', minLength: 24, maxLength: 24},
-  //       description: 'Идентификатор пользователя'
+  //       description: 'edjentefekator polzovatjelja'
   //     },
   //     {
   //       in: 'query',
   //       name: 'fields',
-  //       description: 'Выбираемые поля по пользователю',
+  //       description: 'vyberajemyje polja po polzovatjelju',
   //       schema: {type: 'string'}, example: '_id,profile(name)'
   //     },
   //   ],
@@ -339,8 +339,8 @@ module.exports = async (router, services) => {
    */
   // router.delete('/users/:id', {
   //   operationId: 'users.delete',
-  //   summary: 'Удаление',
-  //   description: 'Удаляется учётная запись. Помечается признаком isDeleted',
+  //   summary: 'udaljeneje',
+  //   description: 'udaljajetsja uchjotnaja zapes. pomjechajetsja preznakom isDeleted',
   //   tags: ['Users'],
   //   session: spec.generate('session.user', ['user']),
   //   parameters: [
@@ -348,12 +348,12 @@ module.exports = async (router, services) => {
   //       in: 'path',
   //       name: 'id',
   //       schema: {type: 'string', minLength: 24, maxLength: 24},
-  //       description: 'Идентификатор пользователя'
+  //       description: 'edjentefekator polzovatjelja'
   //     },
   //     // {
   //     //   in: 'query',
   //     //   name: 'fields',
-  //     //   description: 'Выбираемые поля',
+  //     //   description: 'vyberajemyje polja',
   //     //   schema: {type: 'string'},
   //     //   example: '_id,email,type,profile(name)'
   //     // }
@@ -375,8 +375,8 @@ module.exports = async (router, services) => {
 
   router.put('/users/:id/password', {
     operationId: 'users.password',
-    summary: 'Смена пароля',
-    description: 'Изменение пароля авторизованного пользователя',
+    summary: 'smjena parolja',
+    description: 'ezmjenjeneje parolja avtorezovannogo polzovatjelja',
     tags: ['Users'],
     session: spec.generate('session.user', ['user']),
     requestBody: {
@@ -389,7 +389,7 @@ module.exports = async (router, services) => {
         in: 'path',
         name: 'id',
         schema: {type: 'string', minLength: 24, maxLength: 24},
-        description: 'Идентификатор пользователя'
+        description: 'edjentefekator polzovatjelja'
       },
     ],
     responses: {

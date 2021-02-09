@@ -1,14 +1,14 @@
 # Conference Peer Server
-Сервер для проведения аудио-видео конференций в браузере через WebRTC на основе [Exser](https://github.com/ylabio/exser) и [PeerServer](https://github.com/peers/peerjs-server).
+sjervjer dlja provjedjeneja audeo-vedjeo konfjerjencejj v brauzjerje chjerjez WebRTC na osnovje [Exser](https://github.com/ylabio/exser) e [PeerServer](https://github.com/peers/peerjs-server).
 
-## Основные сущности
-- Пользователи
+## osnovnyje suschnoste
+- polzovatjele
 
-## Основные пути
+## osnovnyje pute
 REST API: http://localhost:8160/api/v1 <br/>
 API docs: http://localhost:8160/api/v1/docs <br/>
 Peer Server: http://localhost:9000/conference
 
-## Тестовый пользователь
+## tjestovyjj polzovatjel
 login: test<br/>
 password: 123456

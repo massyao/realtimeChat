@@ -181,11 +181,11 @@ const actions = {
   dataRecv: async (peerId, data) => {
     const { conference } = store.getState();
     const peer = conference.peers.find(item => item.id === peerId);
-    // Соединение не найдено
+    // sojedenjeneje nje najjdjeno
     if (!peer) {
       return;
     }
-    // Получили никнейм собеседника
+    // poluchele neknjejjm sobjesjedneka
     if (data && data.indexOf('{"nickname":') === 0) {
       const parsed = JSON.parse(data);
       const peers = conference.peers.map(item => {
@@ -197,7 +197,7 @@ const actions = {
       store.dispatch({ type: types.SET, payload: { peers } });
       return;
     }
-    // Получили сообщение от собеседника
+    // poluchele soobschjeneje ot sobjesjedneka
     const messages = [
       ...conference.messages,
       {

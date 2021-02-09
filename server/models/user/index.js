@@ -30,9 +30,9 @@ class User extends Model {
           partialFilterExpression: {email: {$gt: ''}, isDeleted: false}
         }]
       }),
-      // Полная схема объекта
+      // polnaja skhjema objekta
       model: this.spec.extend(parent.model, {
-        title: 'Пользовтель',
+        title: 'polzovtjel',
         properties: {
           email: {
             type: 'string',
@@ -47,19 +47,19 @@ class User extends Model {
           },
           password: {type: 'string', minLength: 6, errors: {minLength: 'At least 6 characters'}},
           role: this.spec.generate('rel', {
-            description: 'Роль',
+            description: 'rol',
             type: 'role',
             copy: 'name'
           }),
           profile: {
             type: 'object',
-            description: 'Свойства профиля',
+            description: 'svojjstva profelja',
             properties: {
-              name: {type: 'string', maxLength: 100, description: 'Имя', default: ''},
-              surname: {type: 'string', maxLength: 100, description: 'Фамилия', default: ''},
-              middlename: {type: 'string', maxLength: 100, description: 'Отчество', default: ''},
+              name: {type: 'string', maxLength: 100, description: 'emja', default: ''},
+              surname: {type: 'string', maxLength: 100, description: 'fameleja', default: ''},
+              middlename: {type: 'string', maxLength: 100, description: 'otchjestvo', default: ''},
               avatar: this.spec.generate('rel', {
-                description: 'Аватарка',
+                description: 'avatarka',
                 type: 'file',
                 default: {}
               }),
@@ -73,7 +73,7 @@ class User extends Model {
               birthday: {
                 type: 'string',
                 anyOf: [{format: 'date-time'}, {const: ''}],
-                description: 'Дата рождения',
+                description: 'data rozhdjeneja',
                 default: ''
               }
             },
@@ -88,12 +88,12 @@ class User extends Model {
   schemes() {
     return this.spec.extend(super.schemes(), {
 
-      // Схема создания
+      // skhjema sozdaneja
       create: {
         properties: {}
       },
 
-      // Схема редактирования
+      // skhjema rjedakterovaneja
       update: {
         properties: {
           profile: {
@@ -104,7 +104,7 @@ class User extends Model {
         }
       },
 
-      // Схема просмотра
+      // skhjema prosmotra
       view: {
         properties: {
           $unset: [
@@ -113,50 +113,50 @@ class User extends Model {
         }
       },
 
-      // Схема авторизации
+      // skhjema avtorezacee
       signIn: {
-        title: `${this._define.model.title}. Авторизация`,
+        title: `${this._define.model.title}. avtorezaceja`,
         type: 'object',
         properties: {
           login: {
             type: 'string',
-            description: 'Email указанный при регистарции',
+            description: 'Email ukazannyjj pre rjegestarcee',
             example: 'test@example.com'
           },
           password: {type: 'string', example: '123456'},
-          remember: {type: 'boolean', description: 'Долгосрочное хранение куки с токеном'}
+          remember: {type: 'boolean', description: 'dolgosrochnoje khranjeneje kuke s tokjenom'}
         },
         required: ['login', 'password'],
         additionalProperties: false
       },
 
-      // Схема сброса пароля
+      // skhjema sbrosa parolja
       restore: {
-        title: `${this._define.model.title}. Запрос пароля`,
+        title: `${this._define.model.title}. zapros parolja`,
         type: 'object',
         properties: {
           login: {
             type: 'string', format: 'email',
-            description: 'Email указанный при регистрации', example: 'user@example.com'
+            description: 'Email ukazannyjj pre rjegestracee', example: 'user@example.com'
           },
         },
         required: ['login'],
         additionalProperties: false
       },
 
-      //Схема смены пароля
+      //skhjema smjeny parolja
       changePassword: {
-        title: `${this._define.model.title}. Смена пароля`,
+        title: `${this._define.model.title}. smjena parolja`,
         type: 'object',
         properties: {
           oldPassword: {
             type: 'string',
-            description: 'Старый пароль'
+            description: 'staryjj parol'
           },
           newPassword: {
             type: 'string',
             minLength: 6,
-            description: 'Новый пароль'
+            description: 'novyjj parol'
           }
         },
         required: ['oldPassword', 'newPassword'],
@@ -204,7 +204,7 @@ class User extends Model {
   }
 
   /**
-   * Смена пароля
+   * smjena parolja
    * @param id
    * @param body
    * @param session
@@ -243,7 +243,7 @@ class User extends Model {
   }
 
   /**
-   * Авторизация по логину/паролю
+   * avtorezaceja po logenu/parolju
    * @param body
    * @param fields
    * @param session
@@ -266,11 +266,11 @@ class User extends Model {
         {path: [], rule: 'find', accept: true, message: 'Wrong login or password'}
       ]);
     }
-    // Доступ на вход
+    // dostup na vkhod
     if (!this.canAuth(user)) {
       throw new errors.Forbidden({}, 'User is not confirmed or is blocked', '001');
     }
-    // Подтверждение нового пароля
+    // podtvjerzhdjeneje novogo parolja
     if (!enterReport && user.newPassword !== passwordHash) {
       await this.native.updateOne({_id: user._id}, {
         $set: {
@@ -278,7 +278,7 @@ class User extends Model {
         }
       });
     }
-    // Создание токена
+    // sozdaneje tokjena
     /** @type Token */
     const tokenStorage = this.storage.get('token');
     const token = await tokenStorage.createOne({
@@ -293,7 +293,7 @@ class User extends Model {
   }
 
   /**
-   * Выход (удаление токена)
+   * vykhod (udaljeneje tokjena)
    * @param session
    * @returns {Promise.<boolean>}
    */
@@ -307,7 +307,7 @@ class User extends Model {
   }
 
   /**
-   * Авторизация по токену
+   * avtorezaceja po tokjenu
    * @param token
    * @param fields
    * @returns {Promise.<*>}
@@ -333,7 +333,7 @@ class User extends Model {
   }
 
   /**
-   * Запрос пароля
+   * zapros parolja
    * @param body
    * @param session
    * @returns {Promise.<boolean>}
@@ -353,20 +353,20 @@ class User extends Model {
     });
     this.mail.transport.sendMail({
       to: user.email,
-      subject: 'Новый пароль',
-      text: `Добрый день!\n\nВы запросили новый пароль: ${password}\n\n` +
+      subject: 'novyjj parol',
+      text: `dobryjj djen!\n\nvy zaprosele novyjj parol: ${password}\n\n` +
         `${this.config.authUrl}`
     });
     return true;
   }
 
   /**
-   * Проверка возможности авторизоваться
+   * provjerka vozmozhnoste avtorezovatsja
    * @param user
    * @returns {boolean}
    */
   canAuth(user/*, token*/) {
-    // Доступ на вход
+    // dostup na vkhod
     return true;
   }
 
@@ -374,11 +374,11 @@ class User extends Model {
     if (user.email && process.env.NODE_ENV !== 'test') {
       this.mail.transport.sendMail({
         to: user.email,
-        subject: 'Регистрация',
-        text: `Добрый день, ${user.profile.name} ${user.profile.surname}!\n\n` +
-          `Вы успешно зарегистрированы на сайте ${this.config.authUrl}\n\n` +
-          `Логин: ${user.email}\n\n` +
-          `Пароль: ${password}\n\n`
+        subject: 'rjegestraceja',
+        text: `dobryjj djen, ${user.profile.name} ${user.profile.surname}!\n\n` +
+          `vy uspjeshno zarjegestrerovany na sajjtje ${this.config.authUrl}\n\n` +
+          `logen: ${user.email}\n\n` +
+          `parol: ${password}\n\n`
       });
     }
   }

@@ -10,12 +10,12 @@ class Role extends Model {
         //relativeId: [{'relative._id': 1}],
       }),
       model: this.spec.extend(parent.model, {
-        title: 'Роль',
+        title: 'rol',
         properties: {
-          name: {type: 'string', description: 'Кодовое название', minLength: 2, maxLength: 200},
-          title: this.spec.generate('i18n', {description: 'Заголовок', minLength: 2, maxLength: 200}),
-          description: this.spec.generate('i18n', {description: 'Описание', default: '', maxLength: 100}),
-          priceClient: {type: 'number', description: 'Ставка клиента', default: 1200}
+          name: {type: 'string', description: 'kodovoje nazvaneje', minLength: 2, maxLength: 200},
+          title: this.spec.generate('i18n', {description: 'zagolovok', minLength: 2, maxLength: 200}),
+          description: this.spec.generate('i18n', {description: 'opesaneje', default: '', maxLength: 100}),
+          priceClient: {type: 'number', description: 'stavka klejenta', default: 1200}
         },
         required: ['name', 'title'],
       })
@@ -24,19 +24,19 @@ class Role extends Model {
 
   schemes() {
     return this.spec.extend(super.schemes(), {
-      // Схема создания
+      // skhjema sozdaneja
       create: {
         properties: {
           $unset: []
         },
       },
-      // Схема редактирования
+      // skhjema rjedakterovaneja
       update: {
         properties: {
           $unset: [],
         }
       },
-      // Схема просмотра
+      // skhjema prosmotra
       view: {
         properties: {
           $unset: []

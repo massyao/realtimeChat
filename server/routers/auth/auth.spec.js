@@ -8,12 +8,12 @@ describe('Auth API', () => {
     s.services = await require('../../services/init-spec');
     s.test = await s.services.getTest();
     s.http = await s.test.getHttp();
-    // Начальные данные для тестов
+    // nachalnyje dannyje dlja tjestov
     data.users = await s.test.initUsers();
   });
 
   describe('Test user auth', () => {
-    test('Авторизация', async () => {
+    test('avtorezaceja', async () => {
       const user = arrayUtils.random(data.users);
       const response = await s.http.post('/api/v1/users/sign').send({
         login: user.email,

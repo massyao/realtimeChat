@@ -1,3 +1,3 @@
-# Сервисы
+# sjervesy
 
-Основные функцинальные модули проекта
+osnovnyje funkcenalnyje module projekta

@@ -12,8 +12,8 @@ module.exports = async (router, services) => {
    */
   router.post('/roles', {
     operationId: 'roles.create',
-    summary: 'Создание',
-    description: 'Создание роли',
+    summary: 'sozdaneje',
+    description: 'sozdaneje role',
     session: spec.generate('session.user', ['user']),
     tags: ['Roles'],
     requestBody: {
@@ -25,7 +25,7 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'Выбираемые поля',
+        description: 'vyberajemyje polja',
         schema: {type: 'string'},
         example: '*'
       }
@@ -47,15 +47,15 @@ module.exports = async (router, services) => {
    */
   router.get('/roles', {
     operationId: 'roles.list',
-    summary: 'Выбор списка (поиск)',
-    description: 'Список ролей с фильтром',
+    summary: 'vybor speska (poesk)',
+    description: 'spesok roljejj s feltrom',
     tags: ['Roles'],
     session: spec.generate('session.user', ['user']),
     parameters: [
       {
         in: 'query',
         name: 'search[query]',
-        description: 'Поиск по названию или заголовку',
+        description: 'poesk po nazvaneju ele zagolovku',
         schema: {type: 'string'}
       },
       {$ref: '#/components/parameters/sort'},
@@ -64,14 +64,14 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'Выбираемые поля',
+        description: 'vyberajemyje polja',
         schema: {type: 'string'},
         example: '_id,name,title'
       },
       {
         in: 'query',
         name: 'changes',
-        description: 'Ключ для выборки изменений',
+        description: 'kljuch dlja vyborke ezmjenjenejj',
         schema: {type: 'string'}
       },
     ],
@@ -111,8 +111,8 @@ module.exports = async (router, services) => {
 
   router.put('/roles/:id', {
     operationId: 'roles.update',
-    summary: 'Редактирование',
-    description: 'Изменение роли',
+    summary: 'rjedakterovaneje',
+    description: 'ezmjenjeneje role',
     tags: ['Roles'],
     session: spec.generate('session.user', ['user']),
     requestBody: {
@@ -124,13 +124,13 @@ module.exports = async (router, services) => {
       {
         in: 'path',
         name: 'id',
-        description: 'id роли',
+        description: 'id role',
         schema: {type: 'string'}
       },
       {
         in: 'query',
         name: 'fields',
-        description: 'Выбираемые поля',
+        description: 'vyberajemyje polja',
         schema: {type: 'string'},
         example: '*'
       }
@@ -151,21 +151,21 @@ module.exports = async (router, services) => {
 
   router.delete('/roles/:id', {
     operationId: 'roles.delete',
-    summary: 'Удаление',
-    description: 'Удаление роли',
+    summary: 'udaljeneje',
+    description: 'udaljeneje role',
     session: spec.generate('session.user', ['user']),
     tags: ['Roles'],
     parameters: [
       {
         in: 'path',
         name: 'id',
-        description: 'Идентификатор роли',
+        description: 'edjentefekator role',
         schema: {type: 'string'}
       },
       {
         in: 'query',
         name: 'fields',
-        description: 'Выбираемые поля',
+        description: 'vyberajemyje polja',
         schema: {type: 'string'},
         example: '_id'
       }

@@ -12,9 +12,9 @@ class File extends exser.Model {
       indexes: this.spec.extend(parent.indexes, {
         //title: [{'title': 1}, {'unique': true, partialFilterExpression: {isDeleted: false}}],
       }),
-      // Полная схема объекта
+      // polnaja skhjema objekta
       model: this.spec.extend(parent.model, {
-          title: 'Файл',
+          title: 'fajjl',
           properties: {
             url: {type: 'string', example: 'http://example.com/file.png'},
             name: {type: 'string', default: ''},
@@ -28,10 +28,10 @@ class File extends exser.Model {
             // sets: {
             //   type: 'object',
             //   patternProperties: {
-            //     '^.+$': this.spec.generate('rel', {description: 'Файл', type: 'file'})
+            //     '^.+$': this.spec.generate('rel', {description: 'fajjl', type: 'file'})
             //   },
             //   default: {},
-            //   description: 'Производные файлы, например, превью',
+            //   description: 'proezvodnyje fajjly, napremjer, prjevju',
             //   additionalProperties: true
             // }
           },
@@ -44,21 +44,21 @@ class File extends exser.Model {
 
   schemes() {
     return this.spec.extend(super.schemes(), {
-      // Схема создания
+      // skhjema sozdaneja
       create: {
         properties: {
           $unset: ['path'],
         }
       },
 
-      // Схема редактирования
+      // skhjema rjedakterovaneja
       update: {
         properties: {
           $unset: ['path']
         },
       },
 
-      // Схема просмотра
+      // skhjema prosmotra
       view: {
         properties: {
           $unset: ['path'],
@@ -87,7 +87,7 @@ class File extends exser.Model {
   }
 
   /**
-   * Загрузка и создание объекта файла
+   * zagruzka e sozdaneje objekta fajjla
    * @param stream
    * @param body
    * @param session
@@ -106,7 +106,7 @@ class File extends exser.Model {
       }]);
     }
     const secret = stringUtils.random(12, 'abcdefghijklmnopqrstuvwxyz0123456789');
-    const _id = new exser.ObjectID(); // id для сущности и url файла
+    const _id = new exser.ObjectID(); // id dlja suschnoste e url fajjla
     body.name = `${_id.toString()}-${secret}.${body.extension}`;
     body.url = `${this.config.url}/${body.name}`;
     const pathFile = path.resolve(this.config.dir, body.name);

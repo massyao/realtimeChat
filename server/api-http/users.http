@@ -37,8 +37,8 @@ Content-Type: application/json
 {
   "email": "boolive@yandex.ru",
   "profile": {
-    "name": "Владимир",
-    "surname": "Шестаков"
+    "name": "vlademer",
+    "surname": "shjestakov"
   }
 }
 

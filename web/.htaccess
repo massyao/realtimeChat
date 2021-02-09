@@ -16,7 +16,7 @@ DirectorySlash Off
 
     RewriteBase /
 
-    # Не изменять ссылки на файлы
+    # nje ezmjenjat ssylke na fajjly
     #RewriteCond %{REQUEST_URI} !\.[a-z]{1,4}[\?0-9]*/?$ [NC]
     RewriteCond %{REQUEST_FILENAME} !-f
 

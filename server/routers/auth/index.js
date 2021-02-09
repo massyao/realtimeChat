@@ -14,9 +14,9 @@ module.exports = async (router, services) => {
   /** @type {User} */
   const userStore = storage.get('user');
   /**
-   * Инициализация сессии запроса
-   * - Аутентификация запроса по токену
-   * - Параметры локали
+   * enecealezaceja sjessee zaprosa
+   * - autjentefekaceja zaprosa po tokjenu
+   * - paramjetry lokale
    */
   router.use('', async (req, res, next) => {
     req.session = {

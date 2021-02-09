@@ -13,11 +13,11 @@ class Token extends exser.Model {
           partialFilterExpression: {phone: {$gt: ''}, isDeleted: false}
         }]
       }),
-      // Полная схема объекта
+      // polnaja skhjema objekta
       model: this.spec.extend(parent.model, {
         properties: {
-          user: this.spec.generate('rel', {description: 'Пользователь', type: 'user'}),
-          value: {type: 'string', description: 'Токен для идентификации'},
+          user: this.spec.generate('rel', {description: 'polzovatjel', type: 'user'}),
+          value: {type: 'string', description: 'tokjen dlja edjentefekacee'},
         },
         required: ['user']
       })
@@ -27,9 +27,9 @@ class Token extends exser.Model {
   schemes() {
     return Object.assign({}, super.schemes(), {
 
-      // Схема создания
+      // skhjema sozdaneja
       create: this.spec.extend(this._define.model, {
-        title: 'Сессия (создание)',
+        title: 'sjesseja (sozdaneje)',
         properties: {
           $unset: [
             '_id', '_type', 'dateCreate', 'dateUpdate', 'isDeleted', 'value'
@@ -37,9 +37,9 @@ class Token extends exser.Model {
         },
       }),
 
-      // Схема редактирования
+      // skhjema rjedakterovaneja
       update: this.spec.extend(this._define.model, {
-          title: 'Сессия (изменение)',
+          title: 'sjesseja (ezmjenjeneje)',
           properties: {
             $unset: [
               '_id', '_type', 'dateCreate', 'dateUpdate', 'value'
@@ -57,9 +57,9 @@ class Token extends exser.Model {
         }
       ),
 
-      // Схема просмотра
+      // skhjema prosmotra
       view: this.spec.extend(this._define.model, {
-          title: 'Сессия (просмотр)',
+          title: 'sjesseja (prosmotr)',
           $set: {
             required: []
           },

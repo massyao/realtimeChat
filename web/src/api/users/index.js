@@ -3,21 +3,21 @@ import Common from '@api/common';
 
 export default class Users extends Common {
   /**
-   * @param api {AxiosInstance} Экземпляр библиотеки axios
-   * @param path {String} Путь в url по умолчанию
+   * @param api {AxiosInstance} ehkzjempljar bebleotjeke axios
+   * @param path {String} put v url po umolchaneju
    */
   constructor(api, path = 'users') {
     super(api, path);
   }
 
   /**
-   * Выбор списка
-   * @param search {Object} Параметры поиска
-   * @param fields {String} Какие поля выбирать
-   * @param limit {Number} Количество
-   * @param skip {Number} Сдвиг выборки от 0
-   * @param path {String} Путь в url
-   * @param other {Object} Другие параметры апи
+   * vybor speska
+   * @param search {Object} paramjetry poeska
+   * @param fields {String} kakeje polja vyberat
+   * @param limit {Number} kolechjestvo
+   * @param skip {Number} sdveg vyborke ot 0
+   * @param path {String} put v url
+   * @param other {Object} drugeje paramjetry ape
    * @returns {Promise}
    */
   getList({
@@ -32,7 +32,7 @@ export default class Users extends Common {
   }
 
   /**
-   * Выбор одного юзера по токену (текущего авторизованного)
+   * vybor odnogo juzjera po tokjenu (tjekuschjego avtorezovannogo)
    * @return {Promise}
    */
   current({ fields = '*', ...other }) {
@@ -40,7 +40,7 @@ export default class Users extends Common {
   }
 
   /**
-   * Авторизация
+   * avtorezaceja
    * @param login
    * @param password
    * @param remember
@@ -59,7 +59,7 @@ export default class Users extends Common {
   }
 
   /**
-   * Выход
+   * vykhod
    * @returns {Promise}
    */
   logout() {

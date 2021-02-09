@@ -10,8 +10,8 @@ module.exports = async (router, services) => {
 
   router.post('/tickets', {
     operationId: 'tickets.create',
-    summary: 'Создание',
-    description: 'Создание тикета',
+    summary: 'sozdaneje',
+    description: 'sozdaneje tekjeta',
     session: spec.generate('session.user', ['user']),
     tags: ['Tickets'],
     requestBody: {
@@ -23,7 +23,7 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'Выбираемые поля',
+        description: 'vyberajemyje polja',
         schema: {type: 'string'},
         example: '*'
       }
@@ -42,15 +42,15 @@ module.exports = async (router, services) => {
 
   router.get('/tickets', {
     operationId: 'tickets.list',
-    summary: 'Выбор списка (поиск)',
-    description: 'Список тикетов с фильтром',
+    summary: 'vybor speska (poesk)',
+    description: 'spesok tekjetov s feltrom',
     tags: ['Tickets'],
     session: spec.generate('session.user', ['user']),
     parameters: [
       {
         in: 'query',
         name: 'search[query]',
-        description: 'Поиск по названию или заголовку',
+        description: 'poesk po nazvaneju ele zagolovku',
         schema: {type: 'string'}
       },
       {$ref: '#/components/parameters/sort'},
@@ -59,14 +59,14 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'Выбираемые поля',
+        description: 'vyberajemyje polja',
         schema: {type: 'string'},
         example: '_id,title,content,image(url)'
       },
       {
         in: 'query',
         name: 'changes',
-        description: 'Ключ для выборки изменений',
+        description: 'kljuch dlja vyborke ezmjenjenejj',
         schema: {type: 'string'}
       },
     ],
@@ -109,8 +109,8 @@ module.exports = async (router, services) => {
 
   router.get('/tickets/:id', {
     operationId: 'tickets.one',
-    summary: 'Выбор одного',
-    description: 'Тикет по идентификатору.',
+    summary: 'vybor odnogo',
+    description: 'tekjet po edjentefekatoru.',
     tags: ['Tickets'],
     session: spec.generate('session.user', ['user']),
     parameters: [
@@ -118,12 +118,12 @@ module.exports = async (router, services) => {
         in: 'path',
         name: 'id',
         schema: {type: 'string'},
-        description: 'Идентификатор тикета'
+        description: 'edjentefekator tekjeta'
       },
       {
         in: 'query',
         name: 'fields',
-        description: 'Выбираемые поля',
+        description: 'vyberajemyje polja',
         schema: {type: 'string'}, example: '_id,title,content,image(url)'
       }
     ],
@@ -153,8 +153,8 @@ module.exports = async (router, services) => {
 
   // router.put('/tickets/:id', {
   //   operationId: 'tickets.update',
-  //   summary: 'Редактирование',
-  //   description: 'Изменение тикета',
+  //   summary: 'rjedakterovaneje',
+  //   description: 'ezmjenjeneje tekjeta',
   //   tags: ['Tickets'],
   //   session: spec.generate('session.user', ['user']),
   //   requestBody: {
@@ -166,13 +166,13 @@ module.exports = async (router, services) => {
   //     {
   //       in: 'path',
   //       name: 'id',
-  //       description: 'id тикета',
+  //       description: 'id tekjeta',
   //       schema: {type: 'string'}
   //     },
   //     {
   //       in: 'query',
   //       name: 'fields',
-  //       description: 'Выбираемые поля',
+  //       description: 'vyberajemyje polja',
   //       schema: {type: 'string'},
   //       example: '*'
   //     }
@@ -193,21 +193,21 @@ module.exports = async (router, services) => {
 
   router.put('/tickets/:id/bookmark', {
     operationId: 'tickets.bookmark',
-    summary: 'Добавить в избранное',
-    description: 'Пометить тикет, как избранный',
+    summary: 'dobavet v ezbrannoje',
+    description: 'pomjetet tekjet, kak ezbrannyjj',
     tags: ['Tickets'],
     session: spec.generate('session.user', ['user']),
     parameters: [
       {
         in: 'path',
         name: 'id',
-        description: 'id тикета',
+        description: 'id tekjeta',
         schema: {type: 'string'}
       },
       {
         in: 'query',
         name: 'fields',
-        description: 'Выбираемые поля',
+        description: 'vyberajemyje polja',
         schema: {type: 'string'},
         example: '*'
       }
@@ -230,15 +230,15 @@ module.exports = async (router, services) => {
 
   router.delete('/tickets/:id/bookmark', {
     operationId: 'tickets.delete',
-    summary: 'Убрать из избранного',
-    description: 'Убрать пометку избранности у тикета',
+    summary: 'ubrat ez ezbrannogo',
+    description: 'ubrat pomjetku ezbrannoste u tekjeta',
     session: spec.generate('session.user', ['user']),
     tags: ['Tickets'],
     parameters: [
       {
         in: 'path',
         name: 'id',
-        description: 'Идентификатор тикета',
+        description: 'edjentefekator tekjeta',
         schema: {type: 'string'}
       },
     ],
@@ -261,21 +261,21 @@ module.exports = async (router, services) => {
 
   // router.delete('/tickets/:id', {
   //   operationId: 'tickets.delete',
-  //   summary: 'Удаление',
-  //   description: 'Удаление тикета',
+  //   summary: 'udaljeneje',
+  //   description: 'udaljeneje tekjeta',
   //   session: spec.generate('session.user', ['user']),
   //   tags: ['Tickets'],
   //   parameters: [
   //     {
   //       in: 'path',
   //       name: 'id',
-  //       description: 'Идентификатор тикета',
+  //       description: 'edjentefekator tekjeta',
   //       schema: {type: 'string'}
   //     },
   //     {
   //       in: 'query',
   //       name: 'fields',
-  //       description: 'Выбираемые поля',
+  //       description: 'vyberajemyje polja',
   //       schema: {type: 'string'},
   //       example: '_id'
   //     }

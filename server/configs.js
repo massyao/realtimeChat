@@ -1,5 +1,5 @@
 /**
- * Конфиг всех сервисов
+ * konfeg vsjekh sjervesov
  * @type {Object}
  */
 module.exports = {
@@ -9,13 +9,13 @@ module.exports = {
     port: 8160,
     routers: require('./routers'),
     log: true,
-    // Кроссдоменные запросы
+    // krossdomjennyje zaprosy
     cors: {
       /**
-       * С каких хостов допустимы запросы
-       * - false для отключения CORS
+       * s kakekh khostov dopustemy zaprosy
+       * - false dlja otkljuchjeneja CORS
        * - ['http://localhost:8000', /\.ysa\.com$/]
-       * - '*' - все хосты
+       * - '*' - vsje khosty
        */
       origin: [
         'http://localhost:8161',
@@ -46,13 +46,13 @@ module.exports = {
 
     file: {
       kinds: {
-        // Тип файла по расширению или mime
+        // tep fajjla po rassherjeneju ele mime
         image: ['gif', 'png', 'jpeg', 'jpg'],
         doc: ['txt', 'pdf', 'doc', 'docx', 'rtf', 'xls', 'xlsx', 'csv'],
         other: ['*']
       },
       dir: './public/uploads',
-      url: '/uploads' //настроить в nginx
+      url: '/uploads' //nastroet v nginx
     },
 
     support: {
@@ -131,14 +131,14 @@ module.exports = {
         //{token: []}, //global
       ],
       tags: [
-        {name: 'Users', description: 'Пользователи'},
-        {name: 'Roles', description: 'Роли'},
-        //{name: 'Support', description: 'Техподдержка'},
-        {name: 'Files', description: 'Файлы'},
-        {name: 'Ticket', description: 'Тикеты (карточки)'},
+        {name: 'Users', description: 'polzovatjele'},
+        {name: 'Roles', description: 'role'},
+        //{name: 'Support', description: 'tjekhpoddjerzhka'},
+        {name: 'Files', description: 'fajjly'},
+        {name: 'Ticket', description: 'tekjety (kartochke)'},
       ],
       // externalDocs: {
-      //   description: 'Исходник для импорта в postman',
+      //   description: 'eskhodnek dlja emporta v postman',
       //   url: '/api/v1/docs/source.json'
       // },
     }
