@@ -49,7 +49,7 @@ function PeersConnect() {
               {fields.map((field, index) => (
                 <Form.Item
                   {...(index === 0 ? layout : tailLayout)}
-                  label={index === 0 ? 'Peers' : ''}
+                  label={index === 0 ? '新朋友' : ''}
                   required={false}
                   key={field.key}
                 >
@@ -60,12 +60,12 @@ function PeersConnect() {
                       {
                         required: true,
                         whitespace: true,
-                        message: 'Please input peer ID or delete this field.',
+                        message: '输入对方的聊天号',
                       },
                     ]}
                     noStyle
                   >
-                    <Input placeholder="peer_id" style={{ width: '85%' }} />
+                    <Input placeholder="朋友的聊天号" style={{ width: '85%' }} />
                   </Form.Item>
                   {fields.length > 1 ? (
                     <MinusCircleOutlined
@@ -86,7 +86,7 @@ function PeersConnect() {
                   }}
                   style={{ width: '85%' }}
                 >
-                  <PlusOutlined /> Add peer
+                  <PlusOutlined /> 邀请朋友
                 </Button>
               </Form.Item>
             </div>
@@ -96,7 +96,7 @@ function PeersConnect() {
 
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit" disabled={!select.connected}>
-          Connect Peers
+          跟朋友连线
         </Button>
       </Form.Item>
     </Form>

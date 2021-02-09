@@ -41,7 +41,7 @@ function Chat() {
       <List
         id="message_list"
         className="message-list"
-        header={`${select.messages.length} messages`}
+        header={`${select.messages.length} 条消息`}
         itemLayout="horizontal"
         dataSource={select.messages}
         renderItem={item => (
@@ -67,15 +67,15 @@ function Chat() {
           rules={[
             {
               required: true,
-              message: 'Please input your message!',
+              message: '',
             },
           ]}
         >
-          <Input placeholder="Chat message..." style={{ width: 350 }} />
+          <Input className="sender-input" placeholder="..." style={{ width: 650 }} />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Send
+            发送
           </Button>
         </Form.Item>
       </Form>

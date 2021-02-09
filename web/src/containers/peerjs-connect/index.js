@@ -55,29 +55,29 @@ function PeerJsConnect() {
       onFinishFailed={onFinishFailed}
     >
       <Form.Item
-        label="Nickname"
+        label="名字"
         name="nickname"
         rules={[
           {
             required: true,
-            message: 'Please input your nickname!',
+            message: '输一个名字',
           },
         ]}
       >
-        <Input placeholder="Peter" disabled={select.connected} />
+        <Input placeholder="小明" disabled={select.connected} />
       </Form.Item>
 
       <Form.Item
-        label="Peer ID"
+        label="聊天号"
         name="peerId"
         rules={[
           {
             required: true,
-            message: 'Please invent and input your ID!',
+            message: '输入聊天号',
           },
         ]}
       >
-        <Input placeholder="peter_falk" disabled={select.connected} />
+        <Input placeholder="a1b2" disabled={select.connected} />
       </Form.Item>
 
       {!!select.errors && (
@@ -86,7 +86,7 @@ function PeerJsConnect() {
 
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit" loading={select.wait} disabled={select.wait}>
-          {select.connected ? 'Disconnect' : 'Connect'}
+          {select.connected ? '断开' : '连接'}
         </Button>
       </Form.Item>
     </Form>

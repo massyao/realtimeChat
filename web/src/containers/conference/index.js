@@ -30,7 +30,7 @@ function Conference() {
         disabled={!select.connected || select.peers.length === 0}
         onClick={callbacks.shareScreenToAll}
       >
-        Share screen
+        {(!select.streaming) ? '发送我的屏幕' : '　　取消　　'}
       </Button>
 
       <Button
@@ -38,7 +38,7 @@ function Conference() {
         disabled={!select.connected || select.peers.length === 0}
         onClick={callbacks.shareCameraToAll}
       >
-        Share camera
+        {(!select.streaming) ? '打开摄像头' : '　　取消　　'}
       </Button>
 
       <Chat />

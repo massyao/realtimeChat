@@ -16,7 +16,7 @@ let config = {
         changeOrigin: true,
       },
     },
-    // useLocalIp: true,
+    useLocalIp: true,
     // host: process.env.HOST || '0.0.0.0',
     disableHostCheck: true,
     compress: true,
