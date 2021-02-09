@@ -1,5 +1,5 @@
 # realtimeChat
-share your screen or camera to your friend via web
+share your screen or camera when chat with your friend
 
 
 all functions are based on webtrc
