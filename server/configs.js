@@ -16,8 +16,8 @@ module.exports = {
   },
 
   peer: {
-    port: 9000,
-    path: '/conference',
+    port: 8080,
+    path: '/chatapi',
   },
 
   storage: {
@@ -53,12 +53,12 @@ module.exports = {
 
   mail: {
     transport: {
-      host: 'smtp.yandex.com',
+      host: 'smtp.123.com',
       port: 465,
       secure: true, // use SSL
       //service: 'gmail',
       auth: {
-        user: 'daniilsidorov2017@yandex.com',
+        user: '123@qq.com',
         pass: 'qqaazzwwssxx'
       }
     },

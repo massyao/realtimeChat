@@ -4,7 +4,7 @@ const args = process.argv.slice(2);
 (async () => {
   const services = new Services().configure('configs.js', 'configs.local.js');
   if (args.length && args[0] === '--task') {
-    // upravljeneje zadachame
+    // task manage
     const tasks = await services.getTasks();
     await tasks.start(...args.slice(1));
     process.exit(0);
