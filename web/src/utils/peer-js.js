@@ -24,7 +24,6 @@ class PeerJs {
     };
   }
 
-  // sojedenjeneje s PeerJs sjervjerom e podpesyvajeneje na sobyteja
   connect(peerId = null, callback) {
     // If connected then do nothing
     if (this.isConnected()) {
@@ -33,12 +32,10 @@ class PeerJs {
     }
 
     if (!this.userMedia) {
-      // zaprashevajem dostup k mekrofonu e vedjeo kamjerje
       this.userMedia =
         navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     }
 
-    // jesle undefined - znachet nje udalos poluchet dostup k mjedea rjesursam polzovatjelja
     if (!this.userMedia) {
       alert('Failed to access user media resources!');
       return;
@@ -56,7 +53,6 @@ class PeerJs {
     this.peerId = peerId;
     this.peer = new Peer(peerId, CONFIG.peerJsServer);
 
-    // sobyteje pre ustanovkje sojedenjeneja s sjervjerom PeerJs
     this.peer.on('open', id => {
       // console.log('peer opened:', id);
       this.peerId = id;
@@ -64,43 +60,37 @@ class PeerJs {
       callback && callback(this.peerId);
     });
 
-    // na dannoje sobyteje nje rjeagerujem. dostatochno sobyteja disconnected.
+
     // this.peer.on('close', () => {
     //   console.log('peer closed');
     //   this.error === null && this._onDisconnected();
     // });
 
-    // sobyteje budjet vyzvano, kak pre ruchnom deskonnjektje, tak e pre error
     this.peer.on('disconnected', () => {
       // console.log('peer disconnected');
-      // jesle bylo sobyteje error, to povtorno _onDisconnected nje vyzyvajem
       this.error === null && this._onDisconnected();
     });
 
-    // poslje sobyteja error budjet vyzvano sobyteje disconnected e potom close
+
     this.peer.on('error', err => {
       // console.log('peer error:', err);
       this.error = err;
       this._onDisconnected(true, err);
       // reconnect infinitely every 1 sec.
       setTimeout(() => {
-        // rjekonnjektem so starym peerId
+        // start by peerId
         this.connect(this.peerId, callback);
       }, 2000);
     });
 
-    // sobyteje pre vkhodjaschjem sojedenjenee tepa data
     this.peer.on('connection', conn => this._onDataConnected(conn));
 
-    // sobyteje pre vkhodjaschjem sojedenjenee tepa media
     this.peer.on('call', call => {
-      // shareng ehkrana
       if (call.metadata && call.metadata.shareScreen) {
         call.answer();
         this._onDisplayMediaConnected(call);
         return;
       }
-      // podkljuchjeneje po vedjeo-svjaze
       this.userMedia(
         this.mediaConfig,
         stream => {
@@ -115,12 +105,11 @@ class PeerJs {
     });
   }
 
-  // povtornoje sojedenjeneje s PeerJs so starym peerId
   reconnect() {
     !this.isDestroyed() && this.peer.reconnect();
   }
 
-  // otsojedenjeneje ot PeerJs sjervjera
+  // PeerJs server
   disconnect() {
     if (!this.peer) {
       return;
@@ -131,7 +120,6 @@ class PeerJs {
     this.elements = [];
   }
 
-  // sojedenjeneje s uchastnekom po tepu data
   dataConnect(peerId, nickname) {
     if (!this.isConnected()) {
       return;
@@ -141,7 +129,6 @@ class PeerJs {
     conn.on('open', () => this._onDataConnected(conn));
   }
 
-  // sojedenjeneje s uchastnekom po tepu media
   mediaCall(peerId, nickname) {
     if (!this.isConnected()) {
       return;
@@ -160,7 +147,6 @@ class PeerJs {
     );
   }
 
-  // sojedenjeneje s uchastnekom po tepu media s rassharevanejem ehkrana vmjesto vedjeo-potoka s kamjery
   async startShareScreen(peerId, nickname) {
     if (!this.isConnected()) {
       return;
@@ -231,7 +217,6 @@ class PeerJs {
     }
   }
 
-  // otpravka soobschjeneja drugomu uchastneku
   sendData(conn, data) {
     if (!conn || !conn.open || !data) {
       return;
@@ -239,12 +224,10 @@ class PeerJs {
     conn.send(data);
   }
 
-  // jest le sojedenjeneje s sjervjerom
   isConnected() {
     return this.peer && !this.peer.disconnected && !this.peer.destroyed;
   }
 
-  // unechtozhjeno le sojedenjeneje (rjekonnjekt v takom sluchaje njevozmozhjen)
   isDestroyed() {
     return !this.peer || this.peer.destroyed;
   }
@@ -265,7 +248,6 @@ class PeerJs {
     }
   }
 
-  // vyzov ehkshjena pre deskonnjektje
   _onDisconnected(clearPeer = false, err) {
     if (clearPeer) {
       this.peer = null;
@@ -273,7 +255,6 @@ class PeerJs {
     actions.conference.disconnected(err);
   }
 
-  // vyzov ehkshjena e podpeska na sobyteja data sojedenjenee
   _onDataConnected(conn) {
     // console.log('data conn opened:', conn);
     actions.conference.dataConnected(conn);
@@ -282,21 +263,16 @@ class PeerJs {
     conn.on('error', err => this._onDataDisconnected(conn, err));
   }
 
-  // vyzov ehkshjena pre poluchjenee data soobschjeneja
   _onDataRecv(peerId, data) {
     // console.log('recv data:', peerId, data);
     actions.conference.dataRecv(peerId, data);
   }
 
-  // kogda uchastnek otsojedenjajetsja ot data sojedenjeneja
-  // err === null - podrazumjevajetsja, chto uchastnek otsojedenelsja namjerjenno
-  // err !== null - pytajemsja sdjelat rjekonnjekt s uchastnekom, jesle enceator - my
   _onDataDisconnected(conn, err = null) {
     // console.log('data disconnected', conn.peer, conn.metadata, err);
     actions.conference.dataDisconnected(conn.peer, err);
   }
 
-  // vyzov ehkshjena e podpeska na sobyteja media sojedenjenee
   _onMediaConnected(call) {
     // console.log('media conn opened:', call);
     actions.conference.mediaConnected(call);
@@ -305,9 +281,6 @@ class PeerJs {
     call.on('error', err => this._onMediaDisconnected(call, err));
   }
 
-  // kogda uchastnek otsojedenjajetsja ot media sojedenjeneja
-  // err === null - podrazumjevajetsja, chto uchastnek otsojedenelsja namjerjenno
-  // err !== null - pytajemsja sdjelat rjekonnjekt s uchastnekom, jesle enceator - my
   _onMediaDisconnected(call, err = null) {
     // console.log('media disconnected', call.peer, call.metadata, err);
     actions.conference.mediaDisconnected(call.peer, err);
@@ -328,8 +301,6 @@ class PeerJs {
     this.removeDisplayElementBy(call.peer);
   }
 
-  // sozdaneje audeo/vedjeo ehljemjenta na stranecje e prevjazka k njemu stream s uchastnekom
-  // vsje ehljemjenty my pomjeschajem v this.elements, chtoby pre deskonnjektje ekh unechtozhet
   _onStreamEvent(peerId, remoteStream, isDisplayMedia = false) {
     const exist = this.elements.find(elm => elm.peerId === peerId);
     if (exist && !isDisplayMedia) {
@@ -359,7 +330,6 @@ class PeerJs {
     elm.play();
   }
 
-  // vyvod na ehkran svojego vedjeo-potoka
   _onMyStreamEvent(myStream) {
     const peerId = this.peerId;
     const exist = this.elements.find(elm => elm.peerId === peerId);

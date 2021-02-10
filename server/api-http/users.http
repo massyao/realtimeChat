@@ -35,10 +35,10 @@ POST {{baseUrl}}/users?fields=order
 Content-Type: application/json
 
 {
-  "email": "boolive@yandex.ru",
+  "email": "user@123.com",
   "profile": {
-    "name": "vlademer",
-    "surname": "shjestakov"
+    "name": "admin",
+    "surname": "user"
   }
 }
 

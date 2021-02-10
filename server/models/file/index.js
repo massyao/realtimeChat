@@ -12,7 +12,7 @@ class File extends exser.Model {
       indexes: this.spec.extend(parent.indexes, {
         //title: [{'title': 1}, {'unique': true, partialFilterExpression: {isDeleted: false}}],
       }),
-      // polnaja skhjema objekta
+
       model: this.spec.extend(parent.model, {
           title: 'fajjl',
           properties: {
@@ -44,21 +44,18 @@ class File extends exser.Model {
 
   schemes() {
     return this.spec.extend(super.schemes(), {
-      // skhjema sozdaneja
       create: {
         properties: {
           $unset: ['path'],
         }
       },
 
-      // skhjema rjedakterovaneja
       update: {
         properties: {
           $unset: ['path']
         },
       },
 
-      // skhjema prosmotra
       view: {
         properties: {
           $unset: ['path'],
@@ -87,7 +84,6 @@ class File extends exser.Model {
   }
 
   /**
-   * zagruzka e sozdaneje objekta fajjla
    * @param stream
    * @param body
    * @param session
@@ -106,7 +102,7 @@ class File extends exser.Model {
       }]);
     }
     const secret = stringUtils.random(12, 'abcdefghijklmnopqrstuvwxyz0123456789');
-    const _id = new exser.ObjectID(); // id dlja suschnoste e url fajjla
+    const _id = new exser.ObjectID(); // id
     body.name = `${_id.toString()}-${secret}.${body.extension}`;
     body.url = `${this.config.url}/${body.name}`;
     const pathFile = path.resolve(this.config.dir, body.name);

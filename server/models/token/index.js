@@ -13,11 +13,11 @@ class Token extends exser.Model {
           partialFilterExpression: {phone: {$gt: ''}, isDeleted: false}
         }]
       }),
-      // polnaja skhjema objekta
+
       model: this.spec.extend(parent.model, {
         properties: {
-          user: this.spec.generate('rel', {description: 'polzovatjel', type: 'user'}),
-          value: {type: 'string', description: 'tokjen dlja edjentefekacee'},
+          user: this.spec.generate('rel', {description: 'user', type: 'user'}),
+          value: {type: 'string', description: 'token'},
         },
         required: ['user']
       })
@@ -27,9 +27,8 @@ class Token extends exser.Model {
   schemes() {
     return Object.assign({}, super.schemes(), {
 
-      // skhjema sozdaneja
       create: this.spec.extend(this._define.model, {
-        title: 'sjesseja (sozdaneje)',
+        title: 'model',
         properties: {
           $unset: [
             '_id', '_type', 'dateCreate', 'dateUpdate', 'isDeleted', 'value'
@@ -37,9 +36,8 @@ class Token extends exser.Model {
         },
       }),
 
-      // skhjema rjedakterovaneja
       update: this.spec.extend(this._define.model, {
-          title: 'sjesseja (ezmjenjeneje)',
+          title: 'title',
           properties: {
             $unset: [
               '_id', '_type', 'dateCreate', 'dateUpdate', 'value'
@@ -57,9 +55,8 @@ class Token extends exser.Model {
         }
       ),
 
-      // skhjema prosmotra
       view: this.spec.extend(this._define.model, {
-          title: 'sjesseja (prosmotr)',
+          title: 'title',
           $set: {
             required: []
           },

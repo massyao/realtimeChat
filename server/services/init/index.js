@@ -60,8 +60,8 @@ class Init {
     const type = 'role';
     if (!this.data[type]) {
       let items = [
-        {name: 'admin', title: {ru: 'admen', en: 'Admin'}},
-        {name: 'user', title: {ru: 'polzovatjel', en: 'User'}}
+        {name: 'admin', title: {ru: 'admin', en: 'Admin'}},
+        {name: 'user', title: {ru: 'w212', en: 'User'}}
       ];
       this.data[type] = [];
       for (let body of items) {
@@ -89,11 +89,11 @@ class Init {
         //   email: 'petya@example.com',
         //   phone: '+79993332211',
         //   password: 'password',
-        //   username: 'petya',
+        //   username: 'sda',
         //   role: {_id: roles.find(s => s.name === 'middle-js')._id},
         //   profile: {
-        //     name: 'vlademer',
-        //     surname: 'shjestakov'
+        //     name: 'sda',
+        //     surname: 'sdas'
         //   }
         // },
       ];

@@ -30,9 +30,9 @@ class User extends Model {
           partialFilterExpression: {email: {$gt: ''}, isDeleted: false}
         }]
       }),
-      // polnaja skhjema objekta
+
       model: this.spec.extend(parent.model, {
-        title: 'polzovtjel',
+        title: 'title',
         properties: {
           email: {
             type: 'string',
@@ -55,9 +55,9 @@ class User extends Model {
             type: 'object',
             description: 'svojjstva profelja',
             properties: {
-              name: {type: 'string', maxLength: 100, description: 'emja', default: ''},
-              surname: {type: 'string', maxLength: 100, description: 'fameleja', default: ''},
-              middlename: {type: 'string', maxLength: 100, description: 'otchjestvo', default: ''},
+              name: {type: 'string', maxLength: 100, description: '11', default: ''},
+              surname: {type: 'string', maxLength: 100, description: '22', default: ''},
+              middlename: {type: 'string', maxLength: 100, description: '333', default: ''},
               avatar: this.spec.generate('rel', {
                 description: 'avatarka',
                 type: 'file',
@@ -65,15 +65,15 @@ class User extends Model {
               }),
               phone: {
                 type: 'string',
-                anyOf: [{pattern: '^\\+[0-9]{10,20}$'}, {const: ''}],
-                example: '+79993332211',
+                anyOf: [{pattern: '^\\+[0-9]{11,20}$'}, {const: ''}],
+                example: '+86-13111223344',
                 errors: {pattern: 'Incorrect format'},
                 default: ''
               },
               birthday: {
                 type: 'string',
                 anyOf: [{format: 'date-time'}, {const: ''}],
-                description: 'data rozhdjeneja',
+                description: 'data',
                 default: ''
               }
             },
@@ -87,13 +87,10 @@ class User extends Model {
 
   schemes() {
     return this.spec.extend(super.schemes(), {
-
-      // skhjema sozdaneja
       create: {
         properties: {}
       },
 
-      // skhjema rjedakterovaneja
       update: {
         properties: {
           profile: {
@@ -104,7 +101,6 @@ class User extends Model {
         }
       },
 
-      // skhjema prosmotra
       view: {
         properties: {
           $unset: [
@@ -113,50 +109,47 @@ class User extends Model {
         }
       },
 
-      // skhjema avtorezacee
       signIn: {
-        title: `${this._define.model.title}. avtorezaceja`,
+        title: `${this._define.model.title}. title`,
         type: 'object',
         properties: {
           login: {
             type: 'string',
-            description: 'Email ukazannyjj pre rjegestarcee',
+            description: 'Email',
             example: 'test@example.com'
           },
           password: {type: 'string', example: '123456'},
-          remember: {type: 'boolean', description: 'dolgosrochnoje khranjeneje kuke s tokjenom'}
+          remember: {type: 'boolean', description: 'test'}
         },
         required: ['login', 'password'],
         additionalProperties: false
       },
 
-      // skhjema sbrosa parolja
       restore: {
-        title: `${this._define.model.title}. zapros parolja`,
+        title: `${this._define.model.title}. title`,
         type: 'object',
         properties: {
           login: {
             type: 'string', format: 'email',
-            description: 'Email ukazannyjj pre rjegestracee', example: 'user@example.com'
+            description: 'Email ', example: 'user@example.com'
           },
         },
         required: ['login'],
         additionalProperties: false
       },
 
-      //skhjema smjeny parolja
       changePassword: {
-        title: `${this._define.model.title}. smjena parolja`,
+        title: `${this._define.model.title}. title`,
         type: 'object',
         properties: {
           oldPassword: {
             type: 'string',
-            description: 'staryjj parol'
+            description: ' test'
           },
           newPassword: {
             type: 'string',
             minLength: 6,
-            description: 'novyjj parol'
+            description: 'test '
           }
         },
         required: ['oldPassword', 'newPassword'],
@@ -204,7 +197,6 @@ class User extends Model {
   }
 
   /**
-   * smjena parolja
    * @param id
    * @param body
    * @param session
@@ -243,7 +235,6 @@ class User extends Model {
   }
 
   /**
-   * avtorezaceja po logenu/parolju
    * @param body
    * @param fields
    * @param session
@@ -266,11 +257,11 @@ class User extends Model {
         {path: [], rule: 'find', accept: true, message: 'Wrong login or password'}
       ]);
     }
-    // dostup na vkhod
+
     if (!this.canAuth(user)) {
       throw new errors.Forbidden({}, 'User is not confirmed or is blocked', '001');
     }
-    // podtvjerzhdjeneje novogo parolja
+
     if (!enterReport && user.newPassword !== passwordHash) {
       await this.native.updateOne({_id: user._id}, {
         $set: {
@@ -278,7 +269,7 @@ class User extends Model {
         }
       });
     }
-    // sozdaneje tokjena
+
     /** @type Token */
     const tokenStorage = this.storage.get('token');
     const token = await tokenStorage.createOne({
@@ -293,7 +284,6 @@ class User extends Model {
   }
 
   /**
-   * vykhod (udaljeneje tokjena)
    * @param session
    * @returns {Promise.<boolean>}
    */
@@ -307,7 +297,6 @@ class User extends Model {
   }
 
   /**
-   * avtorezaceja po tokjenu
    * @param token
    * @param fields
    * @returns {Promise.<*>}
@@ -353,20 +342,18 @@ class User extends Model {
     });
     this.mail.transport.sendMail({
       to: user.email,
-      subject: 'novyjj parol',
-      text: `dobryjj djen!\n\nvy zaprosele novyjj parol: ${password}\n\n` +
+      subject: 'aa',
+      text: `password: ${password}\n\n` +
         `${this.config.authUrl}`
     });
     return true;
   }
 
   /**
-   * provjerka vozmozhnoste avtorezovatsja
    * @param user
    * @returns {boolean}
    */
   canAuth(user/*, token*/) {
-    // dostup na vkhod
     return true;
   }
 
@@ -374,11 +361,11 @@ class User extends Model {
     if (user.email && process.env.NODE_ENV !== 'test') {
       this.mail.transport.sendMail({
         to: user.email,
-        subject: 'rjegestraceja',
-        text: `dobryjj djen, ${user.profile.name} ${user.profile.surname}!\n\n` +
-          `vy uspjeshno zarjegestrerovany na sajjtje ${this.config.authUrl}\n\n` +
-          `logen: ${user.email}\n\n` +
-          `parol: ${password}\n\n`
+        subject: 'subject',
+        text: `dear ${user.profile.name} ${user.profile.surname}!\n\n` +
+          `blabla ${this.config.authUrl}\n\n` +
+          `login: ${user.email}\n\n` +
+          `passwor: ${password}\n\n`
       });
     }
   }

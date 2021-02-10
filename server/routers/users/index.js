@@ -13,7 +13,7 @@ module.exports = async (router, services) => {
    */
   router.post('/users', {
     operationId: 'users.create',
-    summary: 'rjegestraceja (sozdaneje)',
+    summary: 's (sozdaneje)',
     description: 'sozdaneje novogo polzovatjelja (rjegestarceja).',
     tags: ['Users'],
     session: spec.generate('session.user', []),
@@ -105,10 +105,8 @@ module.exports = async (router, services) => {
    */
   router.post('/users/password', {
     operationId: 'users.restore',
-    summary: 'vspomnet parol',
-    description: 'zapros novogo parolja. \n\n' +
-    'na ukazannuju pochtu otpravljajetsja novyjj parol. ' +
-    'staryjj parol zamjenetsja novym pre pjervom vkhodje s novym paroljem',
+    summary: 'blabla',
+    description: 'blabla',
     tags: ['Users'],
     session: spec.generate('session.user', []),
     requestBody: {
@@ -128,13 +126,10 @@ module.exports = async (router, services) => {
     });
   });
 
-  /**
-   *
-   */
   router.delete('/users/sign', {
     operationId: 'users.signOut',
-    summary: 'vykhod',
-    description: 'otmjena avtorezacee. udaljajetsja tjekuschejj tokjen (token) polzovatjelja',
+    summary: 'aaa',
+    description: 'body',
     tags: ['Users'],
     session: spec.generate('session.user', ['user']),
     parameters: [],
@@ -154,35 +149,35 @@ module.exports = async (router, services) => {
   router.get('/users', {
     //proxy: true,
     operationId: 'users.list',
-    summary: 'vybor speska (poesk)',
-    description: 'spesok polzovatjeljejj s feltrom',
+    summary: 'aaa',
+    description: 'aaa',
     tags: ['Users'],
     //session: spec.generate('session.user', ['user']),
     parameters: [
       {
         in: 'query', name: 'search[query]', schema: {type: 'string'}, example: '',
-        description: 'obshejj poesk po feo, tjeljefonu, mylu e dr'
+        description: 'aaa'
       },
       {
         in: 'query', name: 'search[name]', schema: {type: 'string'}, example: '',
-        description: 'poesk po emjene e famelee. "|" - dlja razdjeljeneja poeskovykh fraz'
+        description: 'bbb'
       },
       {
         in: 'query', name: 'search[email]', schema: {type: 'string'}, example: '',
-        description: 'poesk po email'
+        description: ' email'
       },
       {
         in: 'query', name: 'search[phone]', schema: {type: 'string'}, example: '',
-        description: 'poesk po tjeljefonu'
+        description: 'phone'
       },
       {
         in: 'query', name: 'search[status]',
         schema: {type: 'string', enum: ['new', 'reject', 'confirm']},
-        description: 'status polzovatjelja'
+        description: 'sstatus'
       },
       {
         in: 'query', name: 'search[isBlocked]', schema: {type: 'boolean'},
-        description: 'preznak blokerovke'
+        description: 'isBlocked'
       },
       {$ref: '#/components/parameters/sort'},
       {$ref: '#/components/parameters/limit'},
@@ -190,13 +185,13 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: 'fields',
         schema: {type: 'string'}, example: '_id,email,profile(name)'
       },
       {
         in: 'query',
         name: 'changes',
-        description: 'kljuch dlja vyborke ezmjenjenejj',
+        description: 'dj',
         schema: {type: 'string'}
       },
     ],
@@ -246,7 +241,7 @@ module.exports = async (router, services) => {
   router.get('/users/:id', {
     operationId: 'users.one',
     summary: 'vybor odnogo',
-    description: 'polzovatjel po edjentefekatoru. vmjesto edjentefekatora mozhno ukzat self chtoby vybrat tjekuschjego polzovatjelja po tokjenu',
+    description: 's',
     tags: ['Users'],
     session: spec.generate('session.user', ['user']),
     parameters: [
@@ -254,12 +249,12 @@ module.exports = async (router, services) => {
         in: 'path',
         name: 'id',
         schema: {type: 'string'},
-        description: 'edjentefekator polzovatjelja ele self dlja vyborke po tokjenu tjekuschjego juzjera'
+        description: 'ds'
       },
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: 'qq',
         schema: {type: 'string'}, example: '_id,email,profile(name)'
       }
     ],
@@ -289,94 +284,10 @@ module.exports = async (router, services) => {
 
   });
 
-  /**
-   *
-   */
-  // router.put('/users/:id', {
-  //   operationId: 'users.update',
-  //   summary: 'rjedakterovaneje',
-  //   description: 'ezmnjenjeneje svojjstv polzovatjelja. dostupno vladjelcu profelja e admenu',
-  //   tags: ['Users'],
-  //   session: spec.generate('session.user', ['user']),
-  //   requestBody: {
-  //     content: {
-  //       'application/json': {schema: {$ref: '#/components/schemas/user.update'}}
-  //     }
-  //   },
-  //   parameters: [
-  //     {
-  //       in: 'path',
-  //       name: 'id',
-  //       schema: {type: 'string', minLength: 24, maxLength: 24},
-  //       description: 'edjentefekator polzovatjelja'
-  //     },
-  //     {
-  //       in: 'query',
-  //       name: 'fields',
-  //       description: 'vyberajemyje polja po polzovatjelju',
-  //       schema: {type: 'string'}, example: '_id,profile(name)'
-  //     },
-  //   ],
-  //   responses: {
-  //     200: spec.generate('success', {$ref: '#/components/schemas/user.view'}),
-  //     400: spec.generate('error', 'Bad Request', 400),
-  //     404: spec.generate('error', 'Not Found', 404)
-  //   }
-  // }, async (req/*, res*/) => {
-  //
-  //   const user = await users.getOne({filter: new ObjectID(req.params.id), session: req.session});
-  //
-  //   return await storage.get(user._type, 'user').updateOne({
-  //     id: req.params.id,
-  //     body: req.body,
-  //     session: req.session,
-  //     fields: queryUtils.parseFields(req.query.fields)
-  //   });
-  // });
-
-  /**
-   *
-   */
-  // router.delete('/users/:id', {
-  //   operationId: 'users.delete',
-  //   summary: 'udaljeneje',
-  //   description: 'udaljajetsja uchjotnaja zapes. pomjechajetsja preznakom isDeleted',
-  //   tags: ['Users'],
-  //   session: spec.generate('session.user', ['user']),
-  //   parameters: [
-  //     {
-  //       in: 'path',
-  //       name: 'id',
-  //       schema: {type: 'string', minLength: 24, maxLength: 24},
-  //       description: 'edjentefekator polzovatjelja'
-  //     },
-  //     // {
-  //     //   in: 'query',
-  //     //   name: 'fields',
-  //     //   description: 'vyberajemyje polja',
-  //     //   schema: {type: 'string'},
-  //     //   example: '_id,email,type,profile(name)'
-  //     // }
-  //   ],
-  //   responses: {
-  //     200: spec.generate('success', true),
-  //     404: spec.generate('error', 'Not Found', 404)
-  //   }
-  // }, async (req/*, res*/) => {
-  //
-  //   const user = await users.getOne({filter: new ObjectID(req.params.id), session: req.session});
-  //
-  //   return await storage.get(user._type, 'user').deleteOne({
-  //     id: req.params.id,
-  //     session: req.session,
-  //     //fields: queryUtils.parseFields(req.query.fields)
-  //   });
-  // });
-
   router.put('/users/:id/password', {
     operationId: 'users.password',
-    summary: 'smjena parolja',
-    description: 'ezmjenjeneje parolja avtorezovannogo polzovatjelja',
+    summary: 'password',
+    description: '1',
     tags: ['Users'],
     session: spec.generate('session.user', ['user']),
     requestBody: {
@@ -389,7 +300,7 @@ module.exports = async (router, services) => {
         in: 'path',
         name: 'id',
         schema: {type: 'string', minLength: 24, maxLength: 24},
-        description: 'edjentefekator polzovatjelja'
+        description: 'path'
       },
     ],
     responses: {

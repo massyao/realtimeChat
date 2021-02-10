@@ -9,11 +9,11 @@ const args = process.argv.slice(2);
     await tasks.start(...args.slice(1));
     process.exit(0);
   } else {
-    // HTTP sjervjer
+    // HTTP server
     const restApi = await services.getRestApi();
     await restApi.start();
     console.log(`REST API: ${restApi.config.url}, docs: ${restApi.config.url}/docs`);
-    // Peer sjervjer
+    // Peer server
     const peerServer = await services.getPeerServer();
     await peerServer.start();
     const url = `${restApi.config.protocol}${restApi.config.host}:${peerServer.config.port}${peerServer.config.path}`;

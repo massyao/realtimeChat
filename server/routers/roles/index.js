@@ -12,8 +12,8 @@ module.exports = async (router, services) => {
    */
   router.post('/roles', {
     operationId: 'roles.create',
-    summary: 'sozdaneje',
-    description: 'sozdaneje role',
+    summary: 'roles',
+    description: 'role',
     session: spec.generate('session.user', ['user']),
     tags: ['Roles'],
     requestBody: {
@@ -25,7 +25,7 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: 'roles',
         schema: {type: 'string'},
         example: '*'
       }
@@ -47,15 +47,15 @@ module.exports = async (router, services) => {
    */
   router.get('/roles', {
     operationId: 'roles.list',
-    summary: 'vybor speska (poesk)',
-    description: 'spesok roljejj s feltrom',
+    summary: 'aaa',
+    description: 'aaa',
     tags: ['Roles'],
     session: spec.generate('session.user', ['user']),
     parameters: [
       {
         in: 'query',
         name: 'search[query]',
-        description: 'poesk po nazvaneju ele zagolovku',
+        description: 'aaa',
         schema: {type: 'string'}
       },
       {$ref: '#/components/parameters/sort'},
@@ -64,14 +64,14 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: 'bbb',
         schema: {type: 'string'},
         example: '_id,name,title'
       },
       {
         in: 'query',
         name: 'changes',
-        description: 'kljuch dlja vyborke ezmjenjenejj',
+        description: 'bb',
         schema: {type: 'string'}
       },
     ],
@@ -111,8 +111,8 @@ module.exports = async (router, services) => {
 
   router.put('/roles/:id', {
     operationId: 'roles.update',
-    summary: 'rjedakterovaneje',
-    description: 'ezmjenjeneje role',
+    summary: 'update',
+    description: 'role',
     tags: ['Roles'],
     session: spec.generate('session.user', ['user']),
     requestBody: {
@@ -130,7 +130,7 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: 'sda',
         schema: {type: 'string'},
         example: '*'
       }
@@ -151,21 +151,21 @@ module.exports = async (router, services) => {
 
   router.delete('/roles/:id', {
     operationId: 'roles.delete',
-    summary: 'udaljeneje',
-    description: 'udaljeneje role',
+    summary: 'delete',
+    description: 'delete role',
     session: spec.generate('session.user', ['user']),
     tags: ['Roles'],
     parameters: [
       {
         in: 'path',
         name: 'id',
-        description: 'edjentefekator role',
+        description: 'delete role',
         schema: {type: 'string'}
       },
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: 'query role',
         schema: {type: 'string'},
         example: '_id'
       }

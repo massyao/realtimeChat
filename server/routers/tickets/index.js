@@ -10,8 +10,8 @@ module.exports = async (router, services) => {
 
   router.post('/tickets', {
     operationId: 'tickets.create',
-    summary: 'sozdaneje',
-    description: 'sozdaneje tekjeta',
+    summary: 'tickets',
+    description: 'tickets ',
     session: spec.generate('session.user', ['user']),
     tags: ['Tickets'],
     requestBody: {
@@ -23,7 +23,7 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: 'fields',
         schema: {type: 'string'},
         example: '*'
       }
@@ -42,15 +42,15 @@ module.exports = async (router, services) => {
 
   router.get('/tickets', {
     operationId: 'tickets.list',
-    summary: 'vybor speska (poesk)',
-    description: 'spesok tekjetov s feltrom',
+    summary: 'list',
+    description: 'list',
     tags: ['Tickets'],
     session: spec.generate('session.user', ['user']),
     parameters: [
       {
         in: 'query',
         name: 'search[query]',
-        description: 'poesk po nazvaneju ele zagolovku',
+        description: 'query',
         schema: {type: 'string'}
       },
       {$ref: '#/components/parameters/sort'},
@@ -59,14 +59,14 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: 'query',
         schema: {type: 'string'},
         example: '_id,title,content,image(url)'
       },
       {
         in: 'query',
         name: 'changes',
-        description: 'kljuch dlja vyborke ezmjenjenejj',
+        description: 'query',
         schema: {type: 'string'}
       },
     ],
@@ -109,8 +109,8 @@ module.exports = async (router, services) => {
 
   router.get('/tickets/:id', {
     operationId: 'tickets.one',
-    summary: 'vybor odnogo',
-    description: 'tekjet po edjentefekatoru.',
+    summary: 'id',
+    description: 'id',
     tags: ['Tickets'],
     session: spec.generate('session.user', ['user']),
     parameters: [
@@ -118,12 +118,12 @@ module.exports = async (router, services) => {
         in: 'path',
         name: 'id',
         schema: {type: 'string'},
-        description: 'edjentefekator tekjeta'
+        description: 'id'
       },
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: 'fields',
         schema: {type: 'string'}, example: '_id,title,content,image(url)'
       }
     ],
@@ -151,63 +151,23 @@ module.exports = async (router, services) => {
 
   });
 
-  // router.put('/tickets/:id', {
-  //   operationId: 'tickets.update',
-  //   summary: 'rjedakterovaneje',
-  //   description: 'ezmjenjeneje tekjeta',
-  //   tags: ['Tickets'],
-  //   session: spec.generate('session.user', ['user']),
-  //   requestBody: {
-  //     content: {
-  //       'application/json': {schema: {$ref: '#/components/schemas/ticket.update'}}
-  //     }
-  //   },
-  //   parameters: [
-  //     {
-  //       in: 'path',
-  //       name: 'id',
-  //       description: 'id tekjeta',
-  //       schema: {type: 'string'}
-  //     },
-  //     {
-  //       in: 'query',
-  //       name: 'fields',
-  //       description: 'vyberajemyje polja',
-  //       schema: {type: 'string'},
-  //       example: '*'
-  //     }
-  //   ],
-  //   responses: {
-  //     200: spec.generate('success', {$ref: '#/components/schemas/ticket.view'}),
-  //     404: spec.generate('error', 'Not Found', 404)
-  //   }
-  // }, async (req) => {
-  //
-  //   return await tickets.updateOne({
-  //     id: req.params.id,
-  //     body: req.body,
-  //     session: req.session,
-  //     fields: queryUtils.parseFields(req.query.fields)
-  //   });
-  // });
-
   router.put('/tickets/:id/bookmark', {
     operationId: 'tickets.bookmark',
-    summary: 'dobavet v ezbrannoje',
-    description: 'pomjetet tekjet, kak ezbrannyjj',
+    summary: 'bookmark',
+    description: 'bookmark',
     tags: ['Tickets'],
     session: spec.generate('session.user', ['user']),
     parameters: [
       {
         in: 'path',
         name: 'id',
-        description: 'id tekjeta',
+        description: 'id',
         schema: {type: 'string'}
       },
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: ' field',
         schema: {type: 'string'},
         example: '*'
       }
@@ -230,15 +190,15 @@ module.exports = async (router, services) => {
 
   router.delete('/tickets/:id/bookmark', {
     operationId: 'tickets.delete',
-    summary: 'ubrat ez ezbrannogo',
-    description: 'ubrat pomjetku ezbrannoste u tekjeta',
+    summary: 'delete',
+    description: 'aaa',
     session: spec.generate('session.user', ['user']),
     tags: ['Tickets'],
     parameters: [
       {
         in: 'path',
         name: 'id',
-        description: 'edjentefekator tekjeta',
+        description: 'aaa',
         schema: {type: 'string'}
       },
     ],
@@ -259,37 +219,4 @@ module.exports = async (router, services) => {
     return true;
   });
 
-  // router.delete('/tickets/:id', {
-  //   operationId: 'tickets.delete',
-  //   summary: 'udaljeneje',
-  //   description: 'udaljeneje tekjeta',
-  //   session: spec.generate('session.user', ['user']),
-  //   tags: ['Tickets'],
-  //   parameters: [
-  //     {
-  //       in: 'path',
-  //       name: 'id',
-  //       description: 'edjentefekator tekjeta',
-  //       schema: {type: 'string'}
-  //     },
-  //     {
-  //       in: 'query',
-  //       name: 'fields',
-  //       description: 'vyberajemyje polja',
-  //       schema: {type: 'string'},
-  //       example: '_id'
-  //     }
-  //   ],
-  //   responses: {
-  //     200: spec.generate('success', true),
-  //     404: spec.generate('error', 'Not Found', 404)
-  //   }
-  // }, async (req) => {
-  //
-  //   return await tickets.deleteOne({
-  //     id: req.params.id,
-  //     session: req.session,
-  //     fields: queryUtils.parseFields(req.query.fields)
-  //   });
-  // });
 };

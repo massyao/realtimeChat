@@ -13,8 +13,8 @@ module.exports = async (router, services) => {
    */
   router.post('/files', {
     operationId: 'files.upload',
-    summary: 'zagruzka e sozdaneje',
-    description: 'zagruzka fajjla na sjervjer. espolzujetsja potokovaja zagruzka s progrjessom zagruzke (HTML5)',
+    summary: 'upload',
+    description: 'upload',
     tags: ['Files'],
     session: spec.generate('session.user', ['user']),
     consumes: ['multipart/form-data'],
@@ -23,12 +23,12 @@ module.exports = async (router, services) => {
         in: 'formData',
         name: 'file',
         schema: {type: 'file'},
-        description: 'fajjl dlja zagruzke'
+        description: 'file'
       },
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: 'query',
         schema: {type: 'string'},
         example: '*'
       }
@@ -79,8 +79,8 @@ module.exports = async (router, services) => {
    */
   router.get('/files', {
     operationId: 'files.list',
-    summary: 'vybor speska (poesk)',
-    description: 'spesok fajjlov',
+    summary: 'files',
+    description: '111',
     tags: ['Files'],
     session: spec.generate('session.user', ['user']),
     parameters: [
@@ -88,13 +88,13 @@ module.exports = async (router, services) => {
         in: 'query',
         name: 'search[kind]',
         schema: {type: 'string', enum: ['video', 'image', 'other']},
-        description: 'poesk po tepu fajjla'
+        description: 'pa'
       },
       {
         in: 'query',
         name: 'search[status]',
         schema: {type: 'string', enum: ['loading', 'loaded', 'error']},
-        description: 'poesk po statusu zagruzke'
+        description: '111'
       },
       {$ref: '#/components/parameters/sort'},
       {$ref: '#/components/parameters/limit'},
@@ -102,7 +102,7 @@ module.exports = async (router, services) => {
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: '222',
         schema: {type: 'string'},
         example: '*'
       }
@@ -138,21 +138,21 @@ module.exports = async (router, services) => {
    */
   router.get('/files/:id', {
     operationId: 'files.one',
-    summary: 'vybor odnogo',
-    description: 'vybor fajjla po edjentefekatoru',
+    summary: 'id',
+    description: 'id',
     tags: ['Files'],
     session: spec.generate('session.user', ['user']),
     parameters: [
       {
         in: 'path',
         name: 'id',
-        description: 'edjentefekator fajjla',
+        description: 'id',
         schema: {type: 'string'}
       },
       {
         in: 'query',
         name: 'fields',
-        description: 'vyberajemyje polja',
+        description: 'query',
         schema: {type: 'string'},
         example: '*'
       }

@@ -13,7 +13,7 @@ describe('Auth API', () => {
   });
 
   describe('Test user auth', () => {
-    test('avtorezaceja', async () => {
+    test('auth', async () => {
       const user = arrayUtils.random(data.users);
       const response = await s.http.post('/api/v1/users/sign').send({
         login: user.email,

@@ -8,7 +8,7 @@ export const types = {
 };
 
 export const initState = {
-  peers: [], // [{id: 'qq5z3h7k6l111000', nickname: 'Peter', conn: {...} || null, call: {...} || null, shareCall: {...} || null}]
+  peers: [], // [{id: '111', nickname: 'Peter', conn: {...} || null, call: {...} || null, shareCall: {...} || null}]
   messages: [], // [{peer: {id, nickname}, createDate: '...', data: '...'}]
   peerId: null,
   nickname: '',
@@ -181,11 +181,11 @@ const actions = {
   dataRecv: async (peerId, data) => {
     const { conference } = store.getState();
     const peer = conference.peers.find(item => item.id === peerId);
-    // sojedenjeneje nje najjdjeno
+
     if (!peer) {
       return;
     }
-    // poluchele neknjejjm sobjesjedneka
+
     if (data && data.indexOf('{"nickname":') === 0) {
       const parsed = JSON.parse(data);
       const peers = conference.peers.map(item => {
@@ -197,7 +197,7 @@ const actions = {
       store.dispatch({ type: types.SET, payload: { peers } });
       return;
     }
-    // poluchele soobschjeneje ot sobjesjedneka
+
     const messages = [
       ...conference.messages,
       {

@@ -3,21 +3,20 @@ import Common from '@api/common';
 
 export default class Users extends Common {
   /**
-   * @param api {AxiosInstance} ehkzjempljar bebleotjeke axios
-   * @param path {String} put v url po umolchaneju
+   * @param api {AxiosInstance}  axios
+   * @param path {String} 
    */
   constructor(api, path = 'users') {
     super(api, path);
   }
 
   /**
-   * vybor speska
-   * @param search {Object} paramjetry poeska
-   * @param fields {String} kakeje polja vyberat
-   * @param limit {Number} kolechjestvo
-   * @param skip {Number} sdveg vyborke ot 0
-   * @param path {String} put v url
-   * @param other {Object} drugeje paramjetry ape
+   * @param search {Object} 
+   * @param fields {String} 
+   * @param limit {Number} 
+   * @param skip {Number} 
+   * @param path {String} 
+   * @param other {Object} 
    * @returns {Promise}
    */
   getList({
@@ -32,7 +31,6 @@ export default class Users extends Common {
   }
 
   /**
-   * vybor odnogo juzjera po tokjenu (tjekuschjego avtorezovannogo)
    * @return {Promise}
    */
   current({ fields = '*', ...other }) {
@@ -40,7 +38,6 @@ export default class Users extends Common {
   }
 
   /**
-   * avtorezaceja
    * @param login
    * @param password
    * @param remember
@@ -59,7 +56,6 @@ export default class Users extends Common {
   }
 
   /**
-   * vykhod
    * @returns {Promise}
    */
   logout() {

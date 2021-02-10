@@ -8,32 +8,31 @@ class Ticket extends Model {
     const parent = super.define();
     return {
       collection: 'ticket',
-      // polnaja skhjema objekta
       model: this.spec.extend(parent.model, {
-        title: 'tekjet',
+        title: 'ticket',
         properties: {
           title: {
             type: 'string',
-            description: 'zagolovok',
+            description: 'ticket',
             maxLength: 255,
           },
           content: {
             type: 'string',
-            description: 'kontjent',
+            description: 'content',
             maxLength: 4096,
             default: '',
           },
           image: {
             type: 'object',
-            description: 'ezobrazhjeneje',
+            description: 'image',
             properties: {
-              url: {type: 'string', description: 'URL ezobrazhjeneja', default: ''},
+              url: {type: 'string', description: 'URL ', default: ''},
             },
             required: []
           },
           isBookmark: {
             type: 'boolean',
-            description: 'v ezbrannykh ele njet',
+            description: 'bookmark',
             default: false,
           },
         },
@@ -45,17 +44,14 @@ class Ticket extends Model {
   schemes() {
     return this.spec.extend(super.schemes(), {
 
-      // skhjema sozdaneja
       create: {
         properties: {}
       },
 
-      // skhjema rjedakterovaneja
       update: {
         properties: {}
       },
 
-      // skhjema prosmotra
       view: {
         properties: {}
       },

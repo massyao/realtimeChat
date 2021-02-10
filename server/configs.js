@@ -1,5 +1,4 @@
 /**
- * konfeg vsjekh sjervesov
  * @type {Object}
  */
 module.exports = {
@@ -9,14 +8,7 @@ module.exports = {
     port: 8160,
     routers: require('./routers'),
     log: true,
-    // krossdomjennyje zaprosy
     cors: {
-      /**
-       * s kakekh khostov dopustemy zaprosy
-       * - false dlja otkljuchjeneja CORS
-       * - ['http://localhost:8000', /\.ysa\.com$/]
-       * - '*' - vsje khosty
-       */
       origin: [
         'http://localhost:8161',
       ]
@@ -41,18 +33,17 @@ module.exports = {
         length: 8,
         chars: 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM123456678990-!=+&$#'
       },
-      authUrl: 'http://conference-server.ylab.io'
+      authUrl: 'http://conference-server'
     },
 
     file: {
       kinds: {
-        // tep fajjla po rassherjeneju ele mime
         image: ['gif', 'png', 'jpeg', 'jpg'],
         doc: ['txt', 'pdf', 'doc', 'docx', 'rtf', 'xls', 'xlsx', 'csv'],
         other: ['*']
       },
       dir: './public/uploads',
-      url: '/uploads' //nastroet v nginx
+      url: '/uploads' // upload via nginx
     },
 
     support: {
@@ -73,7 +64,7 @@ module.exports = {
     },
     defaults: {
       from: '<daniilsidorov2017@yandex.ru>',
-      replyTo: 'support@ylab.io'
+      replyTo: 'support@aaa.com'
     }
   },
 
@@ -131,16 +122,11 @@ module.exports = {
         //{token: []}, //global
       ],
       tags: [
-        {name: 'Users', description: 'polzovatjele'},
+        {name: 'Users', description: '1'},
         {name: 'Roles', description: 'role'},
-        //{name: 'Support', description: 'tjekhpoddjerzhka'},
-        {name: 'Files', description: 'fajjly'},
-        {name: 'Ticket', description: 'tekjety (kartochke)'},
-      ],
-      // externalDocs: {
-      //   description: 'eskhodnek dlja emporta v postman',
-      //   url: '/api/v1/docs/source.json'
-      // },
+        {name: 'Files', description: '2'},
+        {name: 'Ticket', description: 'Ticket)'},
+      ]
     }
   },
 
