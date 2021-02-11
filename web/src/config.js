@@ -39,9 +39,9 @@ let config = {
 
   peerJsServer: {
     host: 'localhost',
-    // port: 8080,
-    port: 443,
-    path: '/chatapi',
+    port: 8080, // server-port
+    // port: 443,
+    path: '/chatapi', // server-path
     debug: 0, // 0 - disable logs, 1 - only errors, 2 - errors and warnings, 3 - all logs
   },
 };

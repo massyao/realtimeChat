@@ -16,8 +16,8 @@ module.exports = {
   },
 
   peer: {
-    port: 8080,
-    path: '/chatapi',
+    port: 8080, // server-port
+    path: '/chatapi', // server-path
   },
 
   storage: {
