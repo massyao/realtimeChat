@@ -1,8 +1,11 @@
 const Services = require('./services');
 const args = process.argv.slice(2);
 
+
+
 (async () => {
   const services = new Services().configure('configs.js', 'configs.local.js');
+  // console.log('process', process)
   if (args.length && args[0] === '--task') {
     // task manage
     const tasks = await services.getTasks();
