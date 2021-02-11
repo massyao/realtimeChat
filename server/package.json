@@ -1,7 +1,7 @@
 {
-  "name": "conference-peerjs-server",
+  "name": "realtime-chat-server",
   "version": "0.0.1",
-  "author": "Ramil Zaynetdinov <me@proteye.ru>",
+  "author": "amormaid",
   "license": "MIT",
   "private": false,
   "scripts": {
@@ -9,9 +9,9 @@
     "eslint": "./node_modules/.bin/eslint ./"
   },
   "dependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.4.0",
-    "formidable": "^1.2.2",
+    "bluebird": "^3.5.5",
+    "lodash.camelcase": "^4.3.0",
+    "lodash.upperfirst": "^4.3.1",
     "moment": "^2.27.0",
     "peer": "^0.5.3"
   },
