@@ -6,23 +6,16 @@
   "private": false,
   "scripts": {
     "start": "node index.js",
-    "init": "node index.js --task init",
-    "init-example": "node index.js --task init-example mode=clear",
-    "test": "node ./node_modules/jest/bin/jest.js --runInBand --verbose --forceExit",
     "eslint": "./node_modules/.bin/eslint ./"
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^7.4.0",
-    "exser": "^1.4.17",
     "formidable": "^1.2.2",
     "moment": "^2.27.0",
-    "nodemailer": "^6.4.10",
     "peer": "^0.5.3"
   },
   "devDependencies": {
-    "expect": "^26.1.0",
-    "jest": "^26.1.0",
-    "supertest": "^4.0.2"
+    "jest": "^26.1.0"
   }
 }

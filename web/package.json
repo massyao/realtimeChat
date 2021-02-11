@@ -1,7 +1,7 @@
 {
-  "name": "react-peerjs-example",
+  "name": "realtime chat",
   "version": "0.0.1",
-  "description": "PeerJS example application with React & Redux",
+  "description": "real time chat with screen or camera share",
   "main": "index.js",
   "scripts": {
     "start": "cross-env webpack-dev-server",
@@ -10,10 +10,9 @@
     "build:ssr": "cross-env NODE_ENV=production TARGET=node webpack",
     "build:all": "npm run build & npm run build:ssr",
     "build:analize": "cross-env NODE_ENV=production BUILD_ANALYZE=true webpack",
-    "test": "jest",
     "test:eslint": "./node_modules/.bin/eslint ./"
   },
-  "author": "Ramil Zaynetdinov <me@proteye.ru>",
+  "author": "amormaid",
   "license": "MIT",
   "dependencies": {
     "@loadable/component": "^5.12.0",

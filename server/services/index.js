@@ -1,32 +1,69 @@
-const {Services} = require('exser');
-console.log('Services', Services)
-module.exports = class MyServices extends Services {
+const stringUtils = require('../utils/string-utils');
+const objectUtils = require('../utils/object-utils');
+const fs = require('fs');
+const path = require('path');
 
-  /**
-   * @returns {Promise.<Mailer>}
-   */
-  async getMail() {
-    return this.import(__dirname + '/mail');
+class Services {
+
+  constructor(){
+    this.configs = {};
+    this.list = [];
+    this.configure(path.join(__dirname, '../configs.js'));
   }
 
-  /**
-   * @returns {Promise<*>}
-   */
+  async init(configs) {
+    this.configs = this.configure(configs);
+    return this;
+  }
+
+  configure(...configsList){
+    
+    if (configsList) {
+      for (let i = 0; i < configsList.length; i++) {
+        if (typeof configsList[i] === 'string') {
+          const filename = path.resolve(configsList[i]);
+          if (!fs.existsSync(filename)) {
+            fs.writeFileSync(filename, 'module.exports = {};\n');
+            console.log(`A configuration file "${filename}" was created`);
+          }
+          configsList[i] = require(filename);
+        }
+        if (typeof configsList === 'object') {
+          this.configs = objectUtils.merge(this.configs, configsList[i]);
+        }
+      }
+    }
+    return this;
+  }
+
+  async import(path, params) {
+    if (!this.list[path]) {
+      const ClassName = require(path);
+      this.list[path] = new ClassName();
+      const name = path.split(/[\/\\]/).pop();
+      await this.list[path].init(Object.assign({}, this.configs[name], params), this);
+    }
+    return this.list[path];
+  }
+
+  async get(name, params){
+    const method = `get${stringUtils.tuUpperFirst(stringUtils.toCamelCase(name))}`;
+    if (this[method]){
+      return this[method](params);
+    } else {
+      throw new Error(`Unknown service ${name}`);
+    }
+  }
+
   async getPeerServer() {
     return this.import(__dirname + '/peer');
   }
 
-  /**
-   * @returns {Promise<Init>}
-   */
-  async getInit() {
-    return this.import(__dirname + '/init');
-  }
+}
 
-  /**
-   * @returns {Promise<InitExample>}
-   */
-  async getInitExample() {
-    return this.import(__dirname + '/init-example');
-  }
-};
+process.on('unhandledRejection', function (reason/*, p*/) {
+  console.error(reason);
+  process.exit(1);
+});
+
+module.exports = Services;
