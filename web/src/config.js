@@ -1,5 +1,7 @@
 const isWeb = process.env.TARGET === 'web';
 
+console.log('process.env', process.env.TARGET)
+
 let config = {
   dev: {
     port: 8030,
@@ -9,20 +11,6 @@ let config = {
     baseURL: isWeb ? '' : 'http://localhost:8130',
     tokenHeader: 'X-Token',
 
-    proxy: {
-      '/api/**': {
-        target: 'http://localhost:9000/conference',
-        secure: true,
-        changeOrigin: true,
-      },
-    },
-    // useLocalIp: true,
-    host: process.env.HOST || '0.0.0.0',
-    disableHostCheck: true,
-    compress: true,
-    open: true,
-    hot: true,
-    overlay: true // 浏览器上也可以看到编译错误信息
   },
 
   routing: {
@@ -38,9 +26,10 @@ let config = {
   },
 
   peerJsServer: {
-    host: 'localhost',
-    port: 8080, // server-port
-    // port: 443,
+    host: 'allen-tse.space',
+    // host: 'localhost',
+    // port: 8080, // server-port
+    port: 443,
     path: '/chatapi', // server-path
     debug: 0, // 0 - disable logs, 1 - only errors, 2 - errors and warnings, 3 - all logs
   },

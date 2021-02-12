@@ -15,7 +15,7 @@ function App() {
         <title>Real Time Chat</title>
       </Helmet>
       <Switch>
-        <Route path="/" exact={true} component={Main} />
+        <Route path="/chat/" exact={true} component={Main} />
       </Switch>
       <Modals />
     </Fragment>

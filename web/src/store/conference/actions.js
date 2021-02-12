@@ -23,7 +23,7 @@ const actions = {
     try {
       const peers = peerIds.map(peerId => ({
         id: peerId,
-        nickname: 'Unknown',
+        nickname: 'jhon',
         conn: null,
         call: null,
       }));

@@ -1,5 +1,5 @@
 {
-  "name": "realtime chat",
+  "name": "real-time-chat",
   "version": "0.0.1",
   "description": "real time chat with screen or camera share",
   "main": "index.js",

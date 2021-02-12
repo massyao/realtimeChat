@@ -44,7 +44,7 @@ let config = {
   output: {
     path: path.join(__dirname, 'dist', target),
     filename: '[name].js', //'[name]-bundle-[chunkhash:8].js'
-    // publicPath: `/dist/${target}/`,
+    publicPath: '/chat/',
     // pathinfo: true
     libraryTarget: isNode ? 'commonjs2' : undefined,
   },
@@ -131,6 +131,19 @@ let config = {
     warnings: true,
     publicPath: false,
   },
+  optimization: {
+    minimizer: [
+      new TerserJSPlugin({
+        // sourceMap: true, // Must be set to true if using source-maps in production
+        terserOptions: {
+          compress: {
+            drop_console: !true,
+          },
+        },
+      }),
+    ],
+  },
+
 };
 
 if (isWeb) {
@@ -178,7 +191,13 @@ if (isDevelopment && isWeb) {
     publicPath: config.output.publicPath,
     hot: true,
     historyApiFallback: true,
-    proxy: appConfig.api.proxy,
+    proxy: {
+      '/api/**': {
+        target: 'http://localhost:9000/conference',
+        secure: true,
+        changeOrigin: true,
+      },
+    },
     // useLocalIp: true,
     host: process.env.HOST || '127.0.0.1' || '0.0.0.0',
     disableHostCheck: true,
